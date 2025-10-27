@@ -80,7 +80,7 @@
       width: 100%;
       height: auto;
       padding-left: 30px;
-      margin-top: 15px;
+      margin-top: -5px;
     }
 
     .container-cards {
@@ -688,7 +688,7 @@
       column-gap: 60px;
       height: auto;
       padding-left: 30px;
-      padding-top: 20px;
+      margin-top: -5px
     }
 
     .sp-title {
@@ -768,7 +768,7 @@
       position: absolute;
       color: white;
       font-size: 16px;
-      margin-top: 55px;
+      margin-top: 50px;
       margin-left: -10px;
       font-family: 'Mont', sans-serif;
 
@@ -777,9 +777,11 @@
     .sp-subtitle-card {
       position: absolute;
       color: white;
-      font-size: 13px;
+      font-size: 11px;
       margin-top: 90px;
       margin-left: -10px;
+      line-height: 1.0;
+      width: 240px;
       font-family: 'Mont', sans-serif;
 
     }
@@ -1223,7 +1225,7 @@
       left: 40px;
       width: 35px;
       height: 35px;
-      z-index: 10;
+      z-index: 1;
       transform: translate(-50%, -50%);
       cursor: pointer;
     }
@@ -1234,7 +1236,7 @@
       left: 40px;
       width: 25px;
       height: 25px;
-      z-index: 10;
+      z-index: 1;
       transform: translate(-50%, -50%);
       cursor: pointer;
     }
@@ -1245,7 +1247,7 @@
       right: 15px;
       width: 25px;
       height: 25px;
-      z-index: 10;
+      z-index: 1;
       transform: translate(-50%, -50%);
       cursor: pointer;
     }
@@ -1256,7 +1258,7 @@
       right: 15px;
       width: 25px;
       height: 25px;
-      z-index: 10;
+      z-index: 1;
       transform: translate(-50%, -50%);
       cursor: pointer;
       opacity: 0.8;
@@ -1270,6 +1272,10 @@
 
     .sp-hidden-section {
       display: block;
+    }
+
+    .sp-spacer-hidden {
+      display: none;
     }
   </style>
   <link rel="stylesheet" href="rspv800.css">
@@ -1361,12 +1367,6 @@
     <div class="cards-container">
 
       <div class="container-cards-1">
-
-        <p class="title">
-
-          Templates
-
-        </p>
 
         <p id="image-convert-title" class="current-templete">
 
@@ -1670,9 +1670,6 @@
           <button class="sp-tab-2">Interactives</button>
         </div>
 
-        <!-- Template Section -->
-        <h3 class="sp-template">Template</h3>
-
         <div class="sp-separator-buttons">
           <button class="sp-btn-secondary">15s static video </button>
           <button class="sp-59s-video-button">59s video </button>
@@ -1725,15 +1722,9 @@
 
         <div class="sp-container-cards">
 
-          <p class="sp-title">
-
-            Templates
-
-          </p>
-
           <p id="15s" class="sp-current-templete">
 
-            15s static video templates
+            15s static video
 
           </p>
 
@@ -1744,7 +1735,7 @@
 
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card"> 15s static video </p>
+              <p class="sp-title-card">Static video </p>
               <p class="sp-subtitle-card"> no animation, no music </p>
 
 
@@ -1755,7 +1746,7 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/15s-video-02.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card"> 15s static video </p>
+              <p class="sp-title-card">Static video </p>
               <p class="sp-subtitle-card"> no animation, with music </p>
             </div>
           </div>
@@ -1766,7 +1757,7 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/15s-video-03.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card"> 15s static video </p>
+              <p class="sp-title-card">Static video </p>
               <p class="sp-subtitle-card"> with animation, no music </p>
             </div>
           </div>
@@ -1777,7 +1768,7 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/15s-video-04.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card"> 15s static video </p>
+              <p class="sp-title-card">static video </p>
               <p class="sp-subtitle-card"> with animation, and music </p>
             </div>
           </div>
@@ -1787,7 +1778,7 @@
         <br />
         <p id="59s" class="sp-current-templete-2">
 
-          59s video templates
+          60s video
 
         </p>
 
@@ -1802,8 +1793,8 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/59s-video-01.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card">59s image mash up</p>
-              <p class="sp-subtitle-card">transition and animation</p>
+              <p class="sp-title-card">60s image mash up</p>
+              <p class="sp-subtitle-card">multi - static + subtle animation + music + texts animations + logo</p>
             </div>
           </div>
           <div class="sp-card">
@@ -1813,8 +1804,8 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/59s-video-02.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card">59s video and image</p>
-              <p class="sp-subtitle-card">mashup</p>
+              <p class="sp-title-card">60s video and image</p>
+              <p class="sp-subtitle-card">mash up of top videos + statics + cool transitions + music</p>
             </div>
           </div>
 
@@ -1838,7 +1829,7 @@
             <video autoplay muted loop class="sp-gif-card" data-src="./assets/vid-edit-01.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
-              <p class="sp-title-card">Adding subtitles/</p>
+              <p class="sp-title-card">Adding subtitles</p>
               <p class="sp-subtitle-card">captions</p>
             </div>
           </div>
@@ -1886,7 +1877,7 @@
             </video>
             <div class="sp-text-container">
               <p class="sp-title-card">Product </p>
-              <p class="sp-subtitle-card">Tryon</p>
+              <p class="sp-subtitle-card">Try on</p>
             </div>
           </div>
 
@@ -1920,11 +1911,11 @@
             <img class="sp-play-icon" src="./assets/PLAY.svg" alt="">
             <img class="sp-sound-icon" src="./assets/SOUND.svg" alt="">
 
-            <video autoplay muted loop class="sp-gif-card" data-src="./assets/ai-ugc-02.mp4" preload="none" alt="">
+            <video autoplay muted loop class="sp-gif-card" data-src="./assets/ai-ugc-02-new.mp4" preload="none" alt="">
             </video>
             <div class="sp-text-container">
               <p class="sp-title-card">Product </p>
-              <p class="sp-subtitle-card">Try on</p>
+              <p class="sp-subtitle-card">Multi-statics + music + logo </p>
             </div>
           </div>
 
@@ -1963,6 +1954,10 @@
               <p class="sp-subtitle-card">Interview</p>
             </div>
           </div>
+
+        </div>
+
+        <div class="sp-spacer-hidden">
 
         </div>
 

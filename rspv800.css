@@ -23,7 +23,7 @@
   .shadow {
     position: fixed;
     width: 8000px;
-    height: 550px;
+    height: 250px;
     top: 0;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0.7, 0) 100%);
     z-index: 10;
@@ -126,7 +126,7 @@
     column-gap: 40px;
     width: 400px;
     height: auto;
-    margin-top: 3300px;
+    margin-top: 3400px;
     margin-left: -30px;
 
   }
@@ -359,7 +359,196 @@
 
 }
 
-/* ----------------------------------------------------------------------- */
+
+
+@media screen and (max-width: 400px) {
+
+  .first-page .shadow {
+    position: fixed;
+    width: 8000px;
+    height: 250px;
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0.7, 0) 100%);
+    z-index: 10;
+    display: block;
+  }
+
+  .first-page .menu {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    width: 50px;
+    min-width: 350px;
+    height: 145px;
+    overflow-y: auto;
+    padding-bottom: 0px;
+
+  }
+
+  /* Ajustar el logo para que esté centrado con el menú */
+  .first-page .logo {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    width: 100px;
+    height: auto;
+    margin-bottom: 0px;
+
+  }
+
+  .first-page .menu-bottom {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 200px;
+    background-color: #171F26E5;
+    border: 2px solid #171F26BF;
+    border-radius: 20px;
+    font-size: 25px;
+    display: block;
+  }
+
+  .first-page .menu-top-section {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    width: 330px;
+
+  }
+
+  .first-page .menu-description-bg {
+    position: absolute;
+    top: 10px;
+    width: 300px;
+    height: 60px;
+  }
+
+  .first-page .menu-description-bg textarea {
+    width: 90%;
+    font-size: 14px;
+    min-height: 20px;
+    padding: 10px;
+  }
+
+  .first-page .menu-icons-bottom {
+    position: absolute;
+    bottom: 23px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .first-page .menu-icons-bottom {
+    position: absolute;
+    bottom: 23px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .first-page .plus-bottom {
+    position: absolute;
+    left: 15px;
+    width: 13px;
+    height: 13px;
+  }
+
+  .first-page .link-bottom {
+    position: absolute;
+    left: 45px;
+    width: 13px;
+    height: 13px;
+  }
+
+  .first-page .arrow-bottom-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 25px;
+    right: 10px;
+    border-radius: 20px;
+    background-color: #00000040;
+  }
+
+  .first-page .arrow-bottom {
+    width: 10px;
+    height: 10px;
+  }
+
+  .first-page .priority-section-bottom {
+    position: absolute;
+    bottom: 13px;
+    width: 300px;
+    left: 10px;
+  }
+
+
+  .first-page .container-cards-1 {
+    column-gap: 10px;
+    columns: 2;
+    width: 350px;
+    margin-top: 3080px;
+
+  }
+
+  .first-page .container-cards {
+    column-gap: 10px;
+    columns: 2;
+    width: 350px;
+    height: auto;
+
+    padding-bottom: 200px;
+  }
+
+  .first-page .card {
+    width: 170px;
+    height: 300px;
+  }
+
+
+  .first-page .title-card {
+    font-size: 13px;
+    margin-top: 60px;
+    margin-left: 40px;
+    width: 100px;
+  }
+
+  .first-page .current-templete-2 {
+
+    width: 350px;
+  }
+
+
+  .first-page .gif-card {
+    width: 145px;
+    margin-top: -60px;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------------------- */
 
 @media screen and (max-width: 800px) {
 
@@ -487,7 +676,7 @@
     column-gap: 40px;
     width: 400px;
     height: auto;
-    margin-top: 10px;
+    margin-top: 80px;
     margin-left: -30px;
   }
 
@@ -587,6 +776,7 @@
     border-radius: 20px;
     font-size: 25px;
     display: block;
+    z-index: 10;
   }
 
   .menu-top-section {
@@ -727,6 +917,225 @@
   .sp-mute-icon {
     position: absolute;
     top: 82%;
+    right: 5px;
+
+
+  }
+
+
+  .sp-spacer-hidden {
+    display: block;
+    width: 100%;
+    height: 200px;
+  }
+
+
+  .second-page .sp-title-card {
+    margin-top: 40px;
+    margin-left: 30px;
+    width: 200px;
+  }
+
+  .second-page .sp-subtitle-card {
+    width: 160px;
+    margin-top: 70px;
+    margin-left: 30px;
+  }
+
+
+}
+
+@media screen and (max-width: 400px) {
+
+  .second-page .sp-shadow {
+    position: fixed;
+    width: 8000px;
+    height: 250px;
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0.7, 0) 100%);
+    z-index: 10;
+    display: block;
+  }
+
+  .second-page .sp-menu {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    width: 350px;
+    min-width: 350px;
+    height: 145px;
+    overflow-y: auto;
+    padding-bottom: 15px;
+
+  }
+
+  /* Ajustar el logo para que esté centrado con el menú */
+  .second-page .sp-logo {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    width: 100px;
+    height: auto;
+    margin-bottom: 0px;
+
+  }
+
+  .second-page .menu-bottom {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 200px;
+    background-color: #171F26E5;
+    border: 2px solid #171F26BF;
+    border-radius: 20px;
+    font-size: 25px;
+    display: block;
+  }
+
+  .second-page .menu-top-section {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    width: 330px;
+
+  }
+
+  .second-page .menu-description-bg {
+    position: absolute;
+    top: 10px;
+    width: 300px;
+    height: 60px;
+  }
+
+  .second-page .menu-description-bg textarea {
+    width: 90%;
+    font-size: 14px;
+    min-height: 20px;
+    padding: 10px;
+  }
+
+  .second-page .menu-icons-bottom {
+    position: absolute;
+    bottom: 23px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .second-page .menu-icons-bottom {
+    position: absolute;
+    bottom: 23px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .second-page .plus-bottom {
+    position: absolute;
+    left: 15px;
+    width: 13px;
+    height: 13px;
+  }
+
+  .second-page .link-bottom {
+    position: absolute;
+    left: 45px;
+    width: 13px;
+    height: 13px;
+  }
+
+  .second-page .arrow-bottom-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 25px;
+    right: 10px;
+    border-radius: 20px;
+    background-color: #00000040;
+  }
+
+  .second-page .arrow-bottom {
+    width: 10px;
+    height: 10px;
+  }
+
+  .second-page .priority-section-bottom {
+    position: absolute;
+    bottom: 13px;
+    width: 300px;
+    left: 10px;
+  }
+
+  .second-page .sp-container {
+    width: 350px;
+    height: 100%;
+    margin-top: 400px;
+  }
+
+  .second-page .sp-container-cards {
+    column-gap: 10px;
+    columns: 2;
+    width: 350px;
+    height: auto;
+    margin-left: -35px;
+    margin-top: 60px;
+  }
+
+  .second-page .sp-card {
+    width: 170px;
+    height: 300px;
+  }
+
+  .second-page .sp-title-card {
+    margin-top: 60px;
+    margin-left: 40px;
+    width: 200px;
+  }
+
+  .second-page .sp-subtitle-card {
+    margin-top: 80px;
+    margin-left: 40px;
+  }
+
+
+  .second-page .sp-gif-card {
+    width: 145px;
+    margin-top: -60px;
+  }
+
+  .sp-play-icon {
+    position: absolute;
+    top: 80%;
+    left: 30px;
+
+  }
+
+  .sp-pause-icon {
+    position: absolute;
+    top: 80%;
+    left: 30px;
+
+  }
+
+  .sp-sound-icon {
+    position: absolute;
+    top: 79%;
+    right: 5px;
+
+  }
+
+  .sp-mute-icon {
+    position: absolute;
+    top: 79%;
     right: 5px;
 
 
