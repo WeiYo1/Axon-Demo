@@ -381,6 +381,7 @@
     min-width: 350px;
     height: 145px;
     overflow-y: auto;
+    padding-top: 11px;
     padding-bottom: 0px;
 
   }
@@ -496,7 +497,7 @@
     column-gap: 10px;
     columns: 2;
     width: 350px;
-    margin-top: 3080px;
+    margin-top: 3040px;
 
   }
 
@@ -959,14 +960,14 @@
 
   .second-page .sp-menu {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 50%;
     width: 350px;
     min-width: 350px;
     height: 145px;
     overflow-y: auto;
-    padding-bottom: 15px;
-
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   /* Ajustar el logo para que esté centrado con el menú */
@@ -1087,7 +1088,7 @@
     width: 350px;
     height: auto;
     margin-left: -35px;
-    margin-top: 60px;
+    margin-top: 10px;
   }
 
   .second-page .sp-card {
@@ -1096,13 +1097,13 @@
   }
 
   .second-page .sp-title-card {
-    margin-top: 60px;
+    margin-top: 40px;
     margin-left: 40px;
     width: 200px;
   }
 
   .second-page .sp-subtitle-card {
-    margin-top: 80px;
+    margin-top: 75px;
     margin-left: 40px;
   }
 
