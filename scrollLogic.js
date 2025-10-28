@@ -14,9 +14,8 @@ function scrollToTargetId(targetId, offset = -300) {
   }
   // Solo agrega 'selected' si el target es una card
   if (targetElement.classList.contains('card')) {
-    // Solo cambia la selección si el target no está ya seleccionado
+    // Agrega selección sin limpiar otras (multi-select)
     if (!targetElement.classList.contains('selected')) {
-      document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
       targetElement.classList.add('selected');
       // Forzar repaint para asegurar el box-shadow
       targetElement.style.display = 'none';
@@ -54,26 +53,40 @@ function handleInteractivesButtonScroll(button) {
   if (targetId) scrollToTargetId(targetId);
 }
 
+function getInteractiveCardId(buttonText) {
+  if (buttonText === 'Image convert') return 'image-convert';
+  if (buttonText === 'Video convert') return 'video-convert';
+  if (buttonText === 'Infographics') return 'infographic';
+  if (buttonText === 'Carousel') return 'carousel';
+  if (buttonText === 'Review') return 'review';
+  if (buttonText === 'Notes') return 'notes';
+  if (buttonText === 'Pop') return 'pop';
+  if (buttonText === 'Rotate') return 'rotate';
+  if (buttonText === 'Float') return 'float';
+  if (buttonText === '1-2-3 Steps') return 'steps';
+  if (buttonText === 'Stream') return 'stream';
+  if (buttonText === 'Falling') return 'falling';
+  if (buttonText === 'Grid') return 'grid';
+  if (buttonText === 'Before/After') return 'before-after';
+  if (buttonText === 'Gamified Quiz') return 'gamified-quiz';
+  if (buttonText === 'Gamified Product Page') return 'gamified-product-page';
+  return '';
+}
+
 function handleInteractiveGridButtonScroll(button) {
   const buttonText = button.textContent.trim();
-  let cardId = '';
-  if (buttonText === 'Image convert') cardId = 'image-convert';
-  else if (buttonText === 'Video convert') cardId = 'video-convert';
-  else if (buttonText === 'Infographics') cardId = 'infographic';
-  else if (buttonText === 'Carousel') cardId = 'carousel';
-  else if (buttonText === 'Review') cardId = 'review';
-  else if (buttonText === 'Notes') cardId = 'notes';
-  else if (buttonText === 'Pop') cardId = 'pop';
-  else if (buttonText === 'Rotate') cardId = 'rotate';
-  else if (buttonText === 'Float') cardId = 'float';
-  else if (buttonText === '1-2-3 Steps') cardId = 'steps';
-  else if (buttonText === 'Stream') cardId = 'stream';
-  else if (buttonText === 'Falling') cardId = 'falling';
-  else if (buttonText === 'Grid') cardId = 'grid';
-  else if (buttonText === 'Before/After') cardId = 'before-after';
-  else if (buttonText === 'Gamified Quiz') cardId = 'gamified-quiz';
-  else if (buttonText === 'Gamified Product Page') cardId = 'gamified-product-page';
-  if (cardId) scrollToTargetId(cardId, cardId === 'image-convert' || cardId === 'video-convert' ? -500 : 500);
+  const cardId = getInteractiveCardId(buttonText);
+  if (!cardId) return;
+
+  // Si el botón quedó activo tras el toggle, selecciona y hace scroll; si no, deselecciona su card asociada
+  if (button.classList.contains('active')) {
+    scrollToTargetId(cardId, cardId === 'image-convert' || cardId === 'video-convert' ? -500 : 500);
+  } else {
+    const targetElement = document.getElementById(cardId);
+    if (targetElement && targetElement.classList.contains('card')) {
+      targetElement.classList.remove('selected');
+    }
+  }
 }
 
 function setupFirstPageScrolls() {
@@ -93,7 +106,8 @@ function setupFirstPageScrolls() {
   // Interactive grid buttons
   document.querySelectorAll('.first-page .interactive-btn').forEach(button => {
     button.addEventListener('click', function () {
-      handleInteractiveGridButtonScroll(this);
+      // Ejecutar después de que otros listeners (p.ej. toggle de active) hayan corrido
+      requestAnimationFrame(() => handleInteractiveGridButtonScroll(this));
     });
   });
 }

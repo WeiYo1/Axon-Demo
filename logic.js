@@ -136,9 +136,12 @@ if (interactivesButton) {
 // Interactive buttons functionality
 interactiveButtons.forEach(button => {
   button.addEventListener('click', function () {
-    // Only allow one active button at a time
-    interactiveButtons.forEach(btn => btn.classList.remove('active'));
-    this.classList.add('active');
+    // Toggle this button only (multi-select allowed)
+    if (this.classList.contains('active')) {
+      this.classList.remove('active');
+    } else {
+      this.classList.add('active');
+    }
     // Scroll handled in scrollLogic.js
   });
 });
@@ -312,18 +315,32 @@ spSecondaryButtons.forEach(button => {
     if (this.classList.contains('active')) {
       this.classList.remove('active');
     } else {
-      deactivateAllSecondPageButtons();
       this.classList.add('active');
     }
 
     // Scroll functionality
     const buttonText = this.textContent.trim();
     let targetId = '';
+    // Card target id mapping (ids in DOM end with '-target')
+    let cardTargetId = '';
 
     if (buttonText === '15s static video') {
       targetId = '15s';
+      cardTargetId = '15s-target';
     } else if (buttonText === '59s video') {
       targetId = '59s';
+      // Nota: en el DOM los ids son '60s-target' según index.html
+      cardTargetId = '60s-target';
+    }
+
+    // Toggle selection of associated sp-cards without affecting others
+    if (cardTargetId) {
+      const cards = document.querySelectorAll(`.second-page .sp-card[id="${cardTargetId}"]`);
+      if (this.classList.contains('active')) {
+        cards.forEach(c => c.classList.add('selected'));
+      } else {
+        cards.forEach(c => c.classList.remove('selected'));
+      }
     }
 
     if (targetId) {
@@ -349,22 +366,36 @@ spInteractivesButtons.forEach(button => {
     if (this.classList.contains('active')) {
       this.classList.remove('active');
     } else {
-      deactivateAllSecondPageButtons();
       this.classList.add('active');
     }
 
     // Scroll functionality
     const buttonText = this.textContent.trim();
     let targetId = '';
+    // Card target id mapping (ids en DOM terminan con '-target')
+    let cardTargetId = '';
 
     if (buttonText === '59s video templates') {
       targetId = '59s';
     } else if (buttonText === 'Video Editing') {
       targetId = 'video-editing';
+      cardTargetId = 'video-editing-target';
     } else if (buttonText === 'UGC') {
       targetId = 'ugc';
+      cardTargetId = 'ugc-target';
     } else if (buttonText === 'AI UGC') {
       targetId = 'ai-ugc';
+      cardTargetId = 'ai-ugc-target';
+    }
+
+    // Toggle selection of associated sp-cards without affecting others
+    if (cardTargetId) {
+      const cards = document.querySelectorAll(`.second-page .sp-card[id="${cardTargetId}"]`);
+      if (this.classList.contains('active')) {
+        cards.forEach(c => c.classList.add('selected'));
+      } else {
+        cards.forEach(c => c.classList.remove('selected'));
+      }
     }
 
     if (targetId) {
@@ -581,13 +612,10 @@ document.addEventListener('click', function (e) {
   if (e.target.closest('.card') && !e.target.closest('.sp-card')) {
     const card = e.target.closest('.card');
 
-    // If clicking on already selected card, deselect it
+    // Toggle only this card without affecting others (multi-select)
     if (card.classList.contains('selected')) {
       card.classList.remove('selected');
     } else {
-      // Remove selected class from all .card elements
-      document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
-      // Add selected class to clicked card
       card.classList.add('selected');
     }
   }
@@ -596,19 +624,16 @@ document.addEventListener('click', function (e) {
   else if (e.target.closest('.sp-card')) {
     const card = e.target.closest('.sp-card');
 
-    // If clicking on already selected card, deselect it
+    // Toggle only this card without affecting others (multi-select)
     if (card.classList.contains('selected')) {
       card.classList.remove('selected');
     } else {
-      // Remove selected class from all .sp-card elements
-      document.querySelectorAll('.sp-card.selected').forEach(c => c.classList.remove('selected'));
-      // Add selected class to clicked card
       card.classList.add('selected');
     }
   }
 
-  // If clicking on background (not on any card), deselect all cards
+  // No background click behavior: keep current selections until user toggles a card
   else if (!e.target.closest('.card') && !e.target.closest('.sp-card')) {
-    document.querySelectorAll('.card.selected, .sp-card.selected').forEach(c => c.classList.remove('selected'));
+    // Intentionally do nothing to preserve selections
   }
 });
