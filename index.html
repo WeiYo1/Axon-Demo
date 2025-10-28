@@ -81,7 +81,7 @@
       justify-content: start;
       align-items: start;
       columns: 2;
-      column-gap: 60px;
+      column-gap: 40px;
       width: 100%;
       height: auto;
       padding-left: 30px;
@@ -94,7 +94,7 @@
       justify-content: start;
       align-items: start;
       flex-wrap: wrap;
-      column-gap: 60px;
+      column-gap: 40px;
       height: auto;
       padding-left: 30px;
     }
@@ -149,7 +149,7 @@
       align-items: center;
       flex-direction: column;
       width: 280px;
-      height: 480px;
+      height: 510px;
       background-color: #171F26BF;
       border-radius: 30px;
       padding-top: 25px;
@@ -159,7 +159,7 @@
     }
 
     .card.selected {
-      box-shadow: 0 0 30px 5px #0846FF !important;
+      box-shadow: 0 0 10px 5px #0846FF !important;
     }
 
     .text-container {
@@ -194,10 +194,10 @@
 
     .gif-card {
       position: relative;
-      width: 240px;
+      width: 250px;
       height: auto;
       border-radius: 20px;
-      margin-top: -60px;
+      margin-top: -80px;
     }
 
     .menu {
@@ -210,11 +210,12 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 760px;
-      background-color: #2c2c2cbf;
+      height: 795px;
+      background-color: #151a1eff;
       border-radius: 20px;
       padding: 25px 20px;
       box-sizing: border-box;
+      gap: 10px;
       border: 1px solid #171F26BF;
     }
 
@@ -337,15 +338,39 @@
       background-color: #0066ff;
     }
 
+    .menu-top-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 95%;
+      height: auto;
+      padding: 10px;
+      border-radius: 22px;
+      background-color: #171F26FA;
+
+    }
+
+    .interactives-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      background-color: #171F26FA;
+      border-radius: 22px;
+      padding: 10px;
+      padding-top: 0px;
+    }
+
     .interactive-buttons-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      width: 95%;
+      width: 100%;
+      height: auto;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 12px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s ease;
     }
 
     /* Cuando el menú está expandido (dropdown abierto), aplicar scroll al grid */
@@ -378,7 +403,7 @@
     }
 
     .interactive-btn {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 10px 18px;
       border-radius: 25px;
@@ -410,7 +435,7 @@
     }
 
     .tab {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 6px 32px;
       font-family: 'Mont', sans-serif;
@@ -423,7 +448,7 @@
     }
 
     .tab-2 {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 6px 17px;
       font-family: 'Mont', sans-serif;
@@ -433,6 +458,24 @@
       border: none;
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
+    }
+
+    .line-1 {
+      position: absolute;
+      width: 250px;
+      height: 1.5px;
+      top: 43px;
+      left: 135px;
+      background-color: #252c31ff;
+    }
+
+    .line-2 {
+      position: absolute;
+      width: 270px;
+      height: 1.5px;
+      top: 143px;
+      left: 110px;
+      background-color: #252c31ff;
     }
 
     .tab:hover,
@@ -634,7 +677,7 @@
 
     .menu.expanded {
       height: auto;
-      min-height: 735px;
+      min-height: 775px;
     }
 
     .landing {
@@ -708,7 +751,7 @@
       justify-content: start;
       align-items: start;
       flex-wrap: wrap;
-      column-gap: 60px;
+      column-gap: 40px;
       height: auto;
       padding-left: 30px;
       margin-top: 47px
@@ -764,7 +807,7 @@
       align-items: center;
       flex-direction: column;
       width: 280px;
-      height: 480px;
+      height: 510px;
       background-color: #171F26BF;
       border-radius: 30px;
       padding-top: 25px;
@@ -773,8 +816,32 @@
       transition: all 0.2s ease;
     }
 
+    .menu-top-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 95%;
+      height: auto;
+      padding: 10px;
+      border-radius: 22px;
+      background-color: #171F26FA;
+
+    }
+
+    .interactives-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      background-color: #171F26FA;
+      border-radius: 22px;
+      padding: 10px;
+      padding-top: 0px;
+    }
+
     .sp-card.selected {
-      box-shadow: 0 0 20px 2px #0846FF;
+      box-shadow: 0 0 10px 2px #0846FF;
     }
 
     .sp-text-container {
@@ -791,7 +858,7 @@
       position: absolute;
       color: white;
       font-size: 16px;
-      margin-top: 50px;
+      margin-top: 60px;
       margin-left: -10px;
       font-family: 'Mont', sans-serif;
 
@@ -801,7 +868,7 @@
       position: absolute;
       color: white;
       font-size: 11px;
-      margin-top: 90px;
+      margin-top: 105px;
       margin-left: -10px;
       line-height: 1.0;
       width: 240px;
@@ -811,11 +878,10 @@
 
     .sp-gif-card {
       position: relative;
-      width: 240px;
+      width: 250px;
       height: auto;
       border-radius: 20px;
-      margin-top: -60px;
-      cursor: pointer;
+      margin-top: -80px;
     }
 
 
@@ -903,7 +969,7 @@
     }
 
     .sp-btn-primary {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 10px 20px;
       border-radius: 20px;
@@ -927,7 +993,7 @@
 
 
     .sp-btn-secondary {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 10px 20px;
       border-radius: 20px;
@@ -948,7 +1014,7 @@
     }
 
     .sp-interactives {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       padding: 10px 20px;
       border-radius: 20px;
       color: white;
@@ -962,7 +1028,7 @@
     }
 
     .sp-59s-video-button {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       padding: 10px 20px;
       border-radius: 20px;
       color: white;
@@ -1015,7 +1081,7 @@
     }
 
     .sp-tab {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 6px 32px;
       font-family: 'Mont', sans-serif;
@@ -1028,7 +1094,7 @@
     }
 
     .sp-tab-2 {
-      background-color: #171F26BF;
+      background-color: #252c31ff;
       color: white;
       padding: 6px 17px;
       font-family: 'Mont', sans-serif;
@@ -1300,6 +1366,52 @@
     .sp-spacer-hidden {
       display: none;
     }
+
+
+    .sp-menu-top-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 95%;
+      height: auto;
+      padding: 10px;
+      border-radius: 22px;
+      background-color: #171F26FA;
+      gap: 10px;
+
+    }
+
+    .sp-interactives-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      background-color: #171F26FA;
+      width: 95%;
+      border-radius: 22px;
+      padding: 10px;
+      padding-top: 0px;
+      gap: 10px;
+    }
+
+    .sp-line-1 {
+      position: absolute;
+      width: 250px;
+      height: 1.5px;
+      top: 43px;
+      left: 135px;
+      background-color: #252c31ff;
+    }
+
+    .sp-line-2 {
+      position: absolute;
+      width: 290px;
+      height: 1.5px;
+      top: 148px;
+      left: 82px;
+      background-color: #252c31ff;
+    }
   </style>
   <link rel="stylesheet" href="rspv800.css">
 </head>
@@ -1323,35 +1435,48 @@
 
       <div class="menu">
 
-        <!-- Creative Type Section -->
-        <p class="creative-type">Creative type</p>
+        <div class="menu-top-container">
 
-        <!-- Tabs -->
-        <div class="tabs">
-          <button class="tab">Video</button>
-          <button class="tab-2">Interactives</button>
+          <!-- Creative Type Section -->
+          <p class="creative-type">Creative type</p>
+          <div class="line-1"></div>
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab">Video</button>
+            <button class="tab-2">Interactives</button>
+          </div>
+
         </div>
 
-        <!-- Template Section -->
-        <h3 class="interactive-type">Interactives</h3>
-        <div class="interactive-buttons-grid">
-          <button class="interactive-btn">Image convert</button>
-          <button class="interactive-btn">Video convert</button>
-          <button class="interactive-btn">Infographic</button>
-          <button class="interactive-btn">Carousel</button>
-          <button class="interactive-btn">Review</button>
-          <button class="interactive-btn">Notes</button>
-          <button class="interactive-btn">Pop</button>
-          <button class="interactive-btn">Rotate</button>
-          <button class="interactive-btn">Float</button>
-          <button class="interactive-btn">1-2-3 Steps</button>
-          <button class="interactive-btn">Stream</button>
-          <button class="interactive-btn">Falling</button>
-          <button class="interactive-btn">Grid</button>
-          <button class="interactive-btn">Before/After</button>
-          <button class="interactive-btn">Gamified Quiz</button>
-          <button class="interactive-btn">Gamified Product Page</button>
+
+        <div class="interactives-container">
+
+          <!-- Template Section -->
+          <h3 class="interactive-type">Playables</h3>
+          <div class="line-2"></div>
+
+          <div class="interactive-buttons-grid">
+            <button class="interactive-btn">Image convert</button>
+            <button class="interactive-btn">Video convert</button>
+            <button class="interactive-btn">Infographic</button>
+            <button class="interactive-btn">Carousel</button>
+            <button class="interactive-btn">Review</button>
+            <button class="interactive-btn">Notes</button>
+            <button class="interactive-btn">Pop</button>
+            <button class="interactive-btn">Rotate</button>
+            <button class="interactive-btn">Float</button>
+            <button class="interactive-btn">1-2-3 Steps</button>
+            <button class="interactive-btn">Stream</button>
+            <button class="interactive-btn">Falling</button>
+            <button class="interactive-btn">Grid</button>
+            <button class="interactive-btn">Before/After</button>
+            <button class="interactive-btn">Gamified Quiz</button>
+            <button class="interactive-btn">Gamified Product Page</button>
+          </div>
+
         </div>
+
+
 
         <div class="hidden-section">
 
@@ -1396,7 +1521,7 @@
 
         <p id="image-convert-title" class="current-templete">
 
-          Image convert
+          Image/Video convert to HTML
 
         </p>
 
@@ -1407,7 +1532,7 @@
           <div class="text-container">
 
             <p class="title-card">
-              Image convert to HTML
+              Image convert
             </p>
 
           </div>
@@ -1421,7 +1546,7 @@
           <div class="text-container">
 
             <p class="title-card">
-              Video convert to HTML
+              Video convert
             </p>
 
           </div>
@@ -1434,7 +1559,7 @@
 
       <p id="interactives" class="current-templete-2">
 
-        Interactives
+        Playables
 
       </p>
 
@@ -1689,25 +1814,36 @@
 
       <div class="sp-menu">
 
-        <!-- Creative Type Section -->
-        <p class="sp-creative-type">Creative type</p>
+        <div class="sp-menu-top-container">
 
-        <!-- Tabs -->
-        <div class="sp-tabs">
-          <button class="sp-tab">Video</button>
-          <button class="sp-tab-2">Interactives</button>
+          <!-- Creative Type Section -->
+          <p class="sp-creative-type">Creative type</p>
+          <div class="sp-line-1"></div>
+
+          <!-- Tabs -->
+          <div class="sp-tabs">
+            <button class="sp-tab">Video</button>
+            <button class="sp-tab-2">Interactives</button>
+          </div>
+
         </div>
 
-        <div class="sp-separator-buttons">
-          <button class="sp-btn-secondary">15s static video </button>
-          <button class="sp-59s-video-button">60s video </button>
-        </div>
+        <div class="sp-interactives-container">
 
-        <!-- Interactives Section -->
-        <div class="sp-buttons-sepatator">
-          <button class="sp-interactives">Video Editing</button>
-          <button class="sp-interactives">UGC</button>
-          <button class="sp-interactives">AI UGC</button>
+          <h3 class="interactive-type">Video</h3>
+          <div class="sp-line-2"></div>
+          <div class="sp-separator-buttons">
+            <button class="sp-btn-secondary">15s static video </button>
+            <button class="sp-59s-video-button">60s video </button>
+          </div>
+
+          <!-- Interactives Section -->
+          <div class="sp-buttons-sepatator">
+            <button class="sp-interactives">Video Editing</button>
+            <button class="sp-interactives">UGC</button>
+            <button class="sp-interactives">AI UGC</button>
+          </div>
+
         </div>
 
 

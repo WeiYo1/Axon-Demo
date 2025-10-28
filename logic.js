@@ -315,6 +315,7 @@ spSecondaryButtons.forEach(button => {
     if (this.classList.contains('active')) {
       this.classList.remove('active');
     } else {
+      deactivateAllSecondPageButtons();
       this.classList.add('active');
     }
 
@@ -331,16 +332,6 @@ spSecondaryButtons.forEach(button => {
       // El anchor de sección en el DOM sigue siendo '59s'
       targetId = '59s';
       cardTargetId = '60s-target';
-    }
-
-    // Toggle selection of associated sp-cards without affecting others
-    if (cardTargetId) {
-      const cards = document.querySelectorAll(`.second-page .sp-card[id="${cardTargetId}"]`);
-      if (this.classList.contains('active')) {
-        cards.forEach(c => c.classList.add('selected'));
-      } else {
-        cards.forEach(c => c.classList.remove('selected'));
-      }
     }
 
     if (targetId) {
@@ -366,6 +357,7 @@ spInteractivesButtons.forEach(button => {
     if (this.classList.contains('active')) {
       this.classList.remove('active');
     } else {
+      deactivateAllSecondPageButtons();
       this.classList.add('active');
     }
 
@@ -388,15 +380,7 @@ spInteractivesButtons.forEach(button => {
       cardTargetId = 'ai-ugc-target';
     }
 
-    // Toggle selection of associated sp-cards without affecting others
-    if (cardTargetId) {
-      const cards = document.querySelectorAll(`.second-page .sp-card[id="${cardTargetId}"]`);
-      if (this.classList.contains('active')) {
-        cards.forEach(c => c.classList.add('selected'));
-      } else {
-        cards.forEach(c => c.classList.remove('selected'));
-      }
-    }
+    // Do not toggle selection of cards from interactives menu buttons; only scroll
 
     if (targetId) {
       const targetElement = document.getElementById(targetId);
@@ -625,10 +609,41 @@ document.addEventListener('click', function (e) {
     const card = e.target.closest('.sp-card');
 
     // Toggle only this card without affecting others (multi-select)
-    if (card.classList.contains('selected')) {
+    const wasSelected = card.classList.contains('selected');
+    if (wasSelected) {
       card.classList.remove('selected');
     } else {
       card.classList.add('selected');
+    }
+
+    const cardId = card.id;
+    let candidateTexts = [];
+    if (cardId === '15s-target') {
+      candidateTexts = ['15s static video'];
+    } else if (cardId === '60s-target') {
+      candidateTexts = ['59s video', '60s video'];
+    } else if (cardId === 'video-editing-target') {
+      candidateTexts = ['Video Editing'];
+    } else if (cardId === 'ugc-target') {
+      candidateTexts = ['UGC'];
+    } else if (cardId === 'ai-ugc-target') {
+      candidateTexts = ['AI UGC'];
+    }
+
+    // Sync buttons with selection state in this section.
+    if (candidateTexts.length > 0) {
+      const anySelectedInSection = document.querySelectorAll(`.second-page .sp-card[id="${cardId}"].selected`).length > 0;
+      const allMenuButtons = document.querySelectorAll('.second-page .sp-btn-secondary, .second-page .sp-59s-video-button, .second-page .sp-interactives');
+      for (const btn of allMenuButtons) {
+        const txt = btn.textContent.trim();
+        if (candidateTexts.includes(txt)) {
+          if (anySelectedInSection) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      }
     }
   }
 
