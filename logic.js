@@ -327,9 +327,9 @@ spSecondaryButtons.forEach(button => {
     if (buttonText === '15s static video') {
       targetId = '15s';
       cardTargetId = '15s-target';
-    } else if (buttonText === '59s video') {
+    } else if (buttonText === '59s video' || buttonText === '60s video') {
+      // El anchor de sección en el DOM sigue siendo '59s'
       targetId = '59s';
-      // Nota: en el DOM los ids son '60s-target' según index.html
       cardTargetId = '60s-target';
     }
 
