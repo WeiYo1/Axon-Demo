@@ -22,6 +22,11 @@
       src: url("./fonts/Mont-Light.otf");
     }
 
+    @font-face {
+      font-family: 'Semi-bold';
+      src: url("./fonts/Mont-SemiBold.otf");
+    }
+
     .background {
       position: fixed;
       width: 100%;
@@ -80,7 +85,7 @@
       width: 100%;
       height: auto;
       padding-left: 30px;
-      margin-top: -5px;
+      margin-top: 47px;
     }
 
     .container-cards {
@@ -121,7 +126,8 @@
       color: white;
       font-size: 38px;
       width: 100%;
-      font-family: 'Mont', sans-serif;
+      font-family: 'Semi-bold', sans-serif;
+
 
     }
 
@@ -131,7 +137,7 @@
       color: white;
       font-size: 38px;
       width: 100%;
-      font-family: 'Mont', sans-serif;
+      font-family: 'Semi-bold', sans-serif;
       padding-left: 30px;
 
     }
@@ -630,6 +636,23 @@
       height: auto;
       min-height: 735px;
     }
+
+    .landing {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #D9D9D91A;
+      width: 150px;
+      height: 30px;
+      border-radius: 20px;
+      color: white;
+      font-family: 'Mont', sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      left: 35px;
+      top: 159px;
+    }
   </style>
 
 
@@ -688,7 +711,7 @@
       column-gap: 60px;
       height: auto;
       padding-left: 30px;
-      margin-top: -5px
+      margin-top: 47px
     }
 
     .sp-title {
@@ -719,7 +742,7 @@
       color: white;
       font-size: 38px;
       width: 100%;
-      font-family: 'Mont', sans-serif;
+      font-family: 'Semi-bold', sans-serif;
 
     }
 
@@ -729,7 +752,7 @@
       color: white;
       font-size: 38px;
       width: 100%;
-      font-family: 'Mont', sans-serif;
+      font-family: 'Semi-bold', sans-serif;
       padding-left: 30px;
 
     }
@@ -1338,7 +1361,10 @@
             </div>
             <div class="description-icons">
               <button class="icon-btn"><img src="./assets/PLUS.svg" alt=""></button>
-              <button class="icon-btn"><img src="./assets/LINK.svg" alt=""></button>
+
+              <div class="landing">
+                Landing Page
+              </div>
             </div>
           </div>
 
@@ -1628,7 +1654,9 @@
         <div class="menu-icons-bottom">
 
           <img class="plus-bottom" src="./assets/PLUS.svg" alt="">
-          <img class="link-bottom" src="./assets/LINK.svg" alt="">
+          <div class="landing-bottom">
+            Landing Page
+          </div>
 
           <div class="arrow-bottom-container">
             <img class="arrow-bottom" src="./assets/ARROW.svg" alt="">
@@ -1691,7 +1719,9 @@
             </div>
             <div class="sp-description-icons">
               <button class="sp-icon-btn"><img src="./assets/PLUS.svg" alt=""></button>
-              <button class="sp-icon-btn"><img src="./assets/LINK.svg" alt=""></button>
+              <div class="landing">
+                Landing Page
+              </div>
             </div>
           </div>
 
@@ -1980,7 +2010,9 @@
           <div class="menu-icons-bottom">
 
             <img class="plus-bottom" src="./assets/PLUS.svg" alt="">
-            <img class="link-bottom" src="./assets/LINK.svg" alt="">
+            <div class="landing-bottom">
+              Landing Page
+            </div>
 
             <div class="arrow-bottom-container">
               <img class="arrow-bottom" src="./assets/ARROW.svg" alt="">
