@@ -6,6 +6,71 @@ const secondaryButtons = document.querySelectorAll('.first-page .btn-secondary')
 const interactivesButton = document.querySelector('.first-page .interactives');
 const interactiveButtons = document.querySelectorAll('.first-page .interactive-btn');
 
+// --- Helpers to sync first-page cards <-> menu buttons ---
+function getFirstPageButtonTextsForCard(cardId) {
+  switch (cardId) {
+    case 'image-convert': return ['Image convert'];
+    case 'video-convert': return ['Video convert'];
+    case 'infographic': return ['Infographic'];
+    case 'carousel': return ['Carousel'];
+    case 'review': return ['Review'];
+    case 'notes': return ['Notes'];
+    case 'pop': return ['Pop'];
+    case 'rotate': return ['Rotate'];
+    case 'float': return ['Float'];
+    case 'steps': return ['1-2-3 Steps'];
+    case 'stream': return ['Stream'];
+    case 'falling': return ['Falling'];
+    case 'before-after': return ['Before/After'];
+    case 'grid': return ['Grid'];
+    case 'gamified-quiz': return ['Gamified Quiz'];
+    case 'gamified-product-page': return ['Gamified Product Page'];
+    default: return [];
+  }
+}
+
+function getFirstPageCardIdForButtonText(buttonText) {
+  switch (buttonText) {
+    case 'Image convert': return 'image-convert';
+    case 'Video convert': return 'video-convert';
+    case 'Infographic': return 'infographic';
+    case 'Carousel': return 'carousel';
+    case 'Review': return 'review';
+    case 'Notes': return 'notes';
+    case 'Pop': return 'pop';
+    case 'Rotate': return 'rotate';
+    case 'Float': return 'float';
+    case '1-2-3 Steps': return 'steps';
+    case 'Stream': return 'stream';
+    case 'Falling': return 'falling';
+    case 'Before/After': return 'before-after';
+    case 'Grid': return 'grid';
+    case 'Gamified Quiz': return 'gamified-quiz';
+    case 'Gamified Product Page': return 'gamified-product-page';
+    default: return '';
+  }
+}
+
+function syncFirstPageMenuWithCard(cardId, isSelected) {
+  const texts = getFirstPageButtonTextsForCard(cardId);
+  if (texts.length === 0) return;
+  const allMenuButtons = document.querySelectorAll('.first-page .interactive-buttons-grid .interactive-btn');
+  allMenuButtons.forEach(btn => {
+    const txt = btn.textContent.trim();
+    if (texts.includes(txt)) {
+      if (isSelected) btn.classList.add('active'); else btn.classList.remove('active');
+    }
+  });
+}
+
+function syncFirstPageCardWithMenu(buttonText, isActive) {
+  const cardId = getFirstPageCardIdForButtonText(buttonText);
+  if (!cardId) return;
+  const card = document.getElementById(cardId);
+  if (!card) return;
+  if (isActive) card.classList.add('selected'); else card.classList.remove('selected');
+}
+
 // Function to deactivate all buttons in FIRST PAGE only
 function deactivateAllFirstPageButtons() {
   creativeOptions.forEach(btn => btn.classList.remove('active'));
@@ -50,7 +115,7 @@ creativeOptions.forEach(button => {
   });
 });
 
-// Tab buttons
+// Tab buttons (FIRST PAGE)
 tabs.forEach(button => {
   button.addEventListener('click', function () {
     const buttonText = this.textContent.trim();
@@ -82,15 +147,18 @@ tabs.forEach(button => {
         if (backButton) {
           backButton.style.display = 'flex';
         }
+
+        // Asegurar que el tab de Video esté activo en second-page
+        const spVideoTab = document.querySelector('.second-page .sp-tab');
+        if (spVideoTab) spVideoTab.classList.add('active');
       }
-    } else {
-      // Comportamiento normal para otros tabs
-      if (this.classList.contains('active')) {
-        this.classList.remove('active');
-      } else {
-        deactivateAllFirstPageButtons();
-        this.classList.add('active');
-      }
+    } else if (buttonText === 'Interactives') {
+      // En first-page, Interactives debe permanecer activo siempre
+      const fpInteractivesTab = document.querySelector('.first-page .tab-2');
+      const fpVideoTab = document.querySelector('.first-page .tab');
+      if (fpVideoTab) fpVideoTab.classList.remove('active');
+      if (fpInteractivesTab) fpInteractivesTab.classList.add('active');
+      // No navegación (ya estamos en first-page)
     }
   });
 });
@@ -143,6 +211,11 @@ interactiveButtons.forEach(button => {
       this.classList.add('active');
     }
     // Scroll handled in scrollLogic.js
+
+    // Sync associated card selection with this button state
+    const buttonText = this.textContent.trim();
+    const isActive = this.classList.contains('active');
+    syncFirstPageCardWithMenu(buttonText, isActive);
   });
 });
 
@@ -202,10 +275,6 @@ document.addEventListener('click', function (e) {
   }
 });
 
-
-
-
-
 // -----------------------------------------------------------------------
 
 // Get button groups for SECOND PAGE only
@@ -254,23 +323,30 @@ spCreativeOptions.forEach(button => {
         firstPage.style.display = 'flex';
         void firstPage.offsetWidth;
         firstPage.classList.remove('hidden');
+
+        // Asegurar que el tab de Interactives esté activo en first-page
+        const fpInteractivesTab = document.querySelector('.first-page .tab-2');
+        if (fpInteractivesTab) fpInteractivesTab.classList.add('active');
       }, 500); // Duración igual a la transición CSS
     }
   });
 });
 
-// Tab buttons
+// Tab buttons (SECOND PAGE)
 spTabs.forEach(button => {
   button.addEventListener('click', function () {
-    if (this.classList.contains('active')) {
-      this.classList.remove('active');
-    } else {
-      deactivateAllSecondPageButtons();
-      this.classList.add('active');
+    const buttonText = this.textContent.trim();
+
+    if (buttonText === 'Video') {
+      // En second-page, Video debe permanecer activo siempre
+      const spVideoTab = document.querySelector('.second-page .sp-tab');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spVideoTab) spVideoTab.classList.add('active');
+      return; // sin navegación
     }
 
     // Si es el botón "Interactives", navegar de second-page a first-page con animación
-    const buttonText = this.textContent.trim();
     if (buttonText === 'Interactives') {
       const secondPage = document.querySelector('.second-page');
       const firstPage = document.querySelector('.first-page');
@@ -291,6 +367,10 @@ spTabs.forEach(button => {
           firstPage.style.display = 'flex';
           void firstPage.offsetWidth;
           firstPage.classList.remove('hidden');
+
+          // Asegurar que el tab de Interactives esté activo en first-page
+          const fpInteractivesTab = document.querySelector('.first-page .tab-2');
+          if (fpInteractivesTab) fpInteractivesTab.classList.add('active');
         }, 500); // Duración igual a la transición CSS
       }
     }
@@ -597,11 +677,13 @@ document.addEventListener('click', function (e) {
     const card = e.target.closest('.card');
 
     // Toggle only this card without affecting others (multi-select)
-    if (card.classList.contains('selected')) {
-      card.classList.remove('selected');
-    } else {
-      card.classList.add('selected');
-    }
+    const wasSelected = card.classList.contains('selected');
+    if (wasSelected) card.classList.remove('selected'); else card.classList.add('selected');
+
+    // Sync associated menu button(s) with this card state
+    const nowSelected = !wasSelected;
+    const cardId = card.id;
+    syncFirstPageMenuWithCard(cardId, nowSelected);
   }
 
   // Handle .sp-card clicks

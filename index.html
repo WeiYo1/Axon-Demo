@@ -74,20 +74,6 @@
       overflow-x: hidden;
     }
 
-    .container-cards-1 {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: start;
-      align-items: start;
-      columns: 2;
-      column-gap: 40px;
-      width: 100%;
-      height: auto;
-      padding-left: 30px;
-      margin-top: 47px;
-    }
-
     .container-cards {
       position: relative;
       display: flex;
@@ -97,6 +83,7 @@
       column-gap: 40px;
       height: auto;
       padding-left: 30px;
+      margin-top: 90px;
     }
 
     .title {
@@ -127,8 +114,6 @@
       font-size: 38px;
       width: 100%;
       font-family: 'Semi-bold', sans-serif;
-
-
     }
 
     .current-templete-2 {
@@ -471,10 +456,10 @@
 
     .line-2 {
       position: absolute;
-      width: 270px;
+      width: 250px;
       height: 1.5px;
       top: 143px;
-      left: 110px;
+      left: 130px;
       background-color: #252c31ff;
     }
 
@@ -503,7 +488,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      color: #6b7280;
+      color: white;
       font-family: 'Mont', sans-serif;
       font-size: 12px;
       resize: none;
@@ -537,13 +522,13 @@
       color: #6b7280;
       font-size: 16px;
       cursor: pointer;
-      padding: 3px;
       transition: all 0.2s;
+
     }
 
     .icon-btn img {
-      width: 13px;
-      height: 13px;
+      width: 17px;
+      height: 17px;
     }
 
     .icon-btn:hover {
@@ -686,15 +671,22 @@
       justify-content: center;
       align-items: center;
       background-color: #D9D9D91A;
-      width: 150px;
-      height: 30px;
+      width: 307px;
+      height: 28px;
       border-radius: 20px;
       color: white;
       font-family: 'Mont', sans-serif;
-      font-size: 15px;
+      border: none;
+      font-size: 13px;
       cursor: pointer;
-      left: 35px;
+      left: 40px;
       top: 159px;
+      padding-left: 20px;
+    }
+
+    input:focus {
+      outline: none;
+      border: none;
     }
   </style>
 
@@ -1131,7 +1123,7 @@
       width: 100%;
       background: transparent;
       border: none;
-      color: #6b7280;
+      color: white;
       font-family: 'Mont', sans-serif;
       font-size: 12px;
       resize: none;
@@ -1421,8 +1413,6 @@
   <div class="first-page">
 
     <div class="background">
-
-
     </div>
 
     <div class="shadow">
@@ -1442,8 +1432,8 @@
           <div class="line-1"></div>
           <!-- Tabs -->
           <div class="tabs">
+            <button class="tab-2 active">Interactives</button>
             <button class="tab">Video</button>
-            <button class="tab-2">Interactives</button>
           </div>
 
         </div>
@@ -1468,8 +1458,8 @@
             <button class="interactive-btn">1-2-3 Steps</button>
             <button class="interactive-btn">Stream</button>
             <button class="interactive-btn">Falling</button>
-            <button class="interactive-btn">Grid</button>
             <button class="interactive-btn">Before/After</button>
+            <button class="interactive-btn">Grid</button>
             <button class="interactive-btn">Gamified Quiz</button>
             <button class="interactive-btn">Gamified Product Page</button>
           </div>
@@ -1485,11 +1475,9 @@
               <textarea placeholder="Type your description here..."></textarea>
             </div>
             <div class="description-icons">
-              <button class="icon-btn"><img src="./assets/PLUS.svg" alt=""></button>
+              <button class="icon-btn"><img src="./assets/CLIP.svg" alt=""></button>
 
-              <div class="landing">
-                Landing Page
-              </div>
+              <input placeholder="Paste your link here..." class="landing">
             </div>
           </div>
 
@@ -1517,13 +1505,8 @@
 
     <div class="cards-container">
 
-      <div class="container-cards-1">
 
-        <p id="image-convert-title" class="current-templete">
-
-          Image/Video convert to HTML
-
-        </p>
+      <div class="container-cards">
 
         <div id="image-convert" class="card">
 
@@ -1552,21 +1535,6 @@
           </div>
 
         </div>
-
-      </div>
-
-      <br />
-
-      <p id="interactives" class="current-templete-2">
-
-        Playables
-
-      </p>
-
-      <br />
-
-
-      <div class="container-cards">
 
         <div id="infographic" class="card">
 
@@ -1778,14 +1746,8 @@
 
         <div class="menu-icons-bottom">
 
-          <img class="plus-bottom" src="./assets/PLUS.svg" alt="">
-          <div class="landing-bottom">
-            Landing Page
-          </div>
-
-          <div class="arrow-bottom-container">
-            <img class="arrow-bottom" src="./assets/ARROW.svg" alt="">
-          </div>
+          <img class="plus-bottom" src="./assets/CLIP.svg" alt="">
+          <input placeholder="Paste your link here..." class="landing-bottom">
 
         </div>
 
@@ -1822,8 +1784,9 @@
 
           <!-- Tabs -->
           <div class="sp-tabs">
-            <button class="sp-tab">Video</button>
             <button class="sp-tab-2">Interactives</button>
+
+            <button class="sp-tab active">Video</button>
           </div>
 
         </div>
@@ -1855,9 +1818,7 @@
             </div>
             <div class="sp-description-icons">
               <button class="sp-icon-btn"><img src="./assets/PLUS.svg" alt=""></button>
-              <div class="landing">
-                Landing Page
-              </div>
+              <input placeholder="Paste your link here..." class="landing">
             </div>
           </div>
 
@@ -2061,7 +2022,7 @@
             </video>
             <div class="sp-text-container">
               <p class="sp-title-card">Product </p>
-              <p class="sp-subtitle-card">Try on</p>
+              <p class="sp-subtitle-card">try on</p>
             </div>
           </div>
 
@@ -2145,14 +2106,8 @@
 
           <div class="menu-icons-bottom">
 
-            <img class="plus-bottom" src="./assets/PLUS.svg" alt="">
-            <div class="landing-bottom">
-              Landing Page
-            </div>
-
-            <div class="arrow-bottom-container">
-              <img class="arrow-bottom" src="./assets/ARROW.svg" alt="">
-            </div>
+            <img class="plus-bottom" src="./assets/CLIP.svg" alt="">
+            <input placeholder="Paste your link here..." class="sp-landing-bottom">
 
           </div>
 

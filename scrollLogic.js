@@ -1,7 +1,7 @@
 // scrollLogic.js
 // Centraliza la lógica de scroll de los botones de first-page/interactives
 
-function scrollToTargetId(targetId, offset = -300) {
+function scrollToTargetId(targetId, offset = -800) {
   const targetElement = document.getElementById(targetId);
   const cardsContainer = document.querySelector('.cards-container');
   if (!targetElement) {
@@ -24,15 +24,54 @@ function scrollToTargetId(targetId, offset = -300) {
       targetElement.style.display = '';
       console.log('Agregado .selected a:', targetElement.id);
     }
+    // Asegurar que la card quede completamente visible en el viewport del contenedor
+    const paddingTop = 20; // espacio adicional arriba
+    const paddingBottom = 20; // espacio adicional abajo
+
+    // Calcular posición del target relativa al viewport del contenedor usando rects (más robusto con layouts responsivos)
+    const containerRect = cardsContainer.getBoundingClientRect();
+    const targetRect = targetElement.getBoundingClientRect();
+    const viewTop = cardsContainer.scrollTop;
+    const targetTopInView = viewTop + (targetRect.top - containerRect.top);
+    const targetBottomInView = targetTopInView + targetElement.offsetHeight;
+
+    // Rango de scroll permitido para ver completamente la card con padding
+    const minScrollTop = targetBottomInView + paddingBottom - cardsContainer.clientHeight; // lo mínimo para descubrir el bottom
+    const maxScrollTop = targetTopInView - paddingTop; // lo máximo manteniendo visible el top
+
+    // Si la card es más alta que el viewport, prioriza alinear el top con padding
+    let newScrollTop;
+    if (targetElement.offsetHeight >= cardsContainer.clientHeight - (paddingTop + paddingBottom)) {
+      newScrollTop = Math.max(0, maxScrollTop);
+    } else {
+      // Ajusta solo si está fuera de vista
+      if (viewTop < minScrollTop) {
+        newScrollTop = minScrollTop;
+      } else if (viewTop > maxScrollTop) {
+        newScrollTop = maxScrollTop;
+      } else {
+        newScrollTop = viewTop; // ya está completamente visible
+      }
+      newScrollTop = Math.max(0, newScrollTop);
+    }
+
+    // Limitar al scroll máximo del contenedor
+    const maxScrollable = cardsContainer.scrollHeight - cardsContainer.clientHeight;
+    newScrollTop = Math.min(newScrollTop, maxScrollable);
+
+    cardsContainer.scrollTo({
+      top: newScrollTop,
+      behavior: 'smooth'
+    });
   } else {
     console.warn('El target no es una card:', targetElement);
+    const elementPosition = targetElement.offsetTop;
+    const offsetPosition = elementPosition + offset;
+    cardsContainer.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
   }
-  const elementPosition = targetElement.offsetTop;
-  const offsetPosition = elementPosition + offset;
-  cardsContainer.scrollTo({
-    top: offsetPosition,
-    behavior: 'smooth'
-  });
 }
 
 function handleSecondaryButtonScroll(button) {
@@ -56,7 +95,7 @@ function handleInteractivesButtonScroll(button) {
 function getInteractiveCardId(buttonText) {
   if (buttonText === 'Image convert') return 'image-convert';
   if (buttonText === 'Video convert') return 'video-convert';
-  if (buttonText === 'Infographics') return 'infographic';
+  if (buttonText === 'Infographic') return 'infographic';
   if (buttonText === 'Carousel') return 'carousel';
   if (buttonText === 'Review') return 'review';
   if (buttonText === 'Notes') return 'notes';
