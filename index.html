@@ -195,7 +195,7 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 795px;
+      height: 835px;
       background-color: #151a1eff;
       border-radius: 20px;
       padding: 25px 20px;
@@ -662,7 +662,7 @@
 
     .menu.expanded {
       height: auto;
-      min-height: 775px;
+      min-height: 820px;
     }
 
     .landing {
@@ -681,6 +681,25 @@
       cursor: pointer;
       left: 40px;
       top: 159px;
+      padding-left: 20px;
+    }
+
+    .company {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #D9D9D91A;
+      width: 307px;
+      height: 28px;
+      border-radius: 20px;
+      color: white;
+      font-family: 'Mont', sans-serif;
+      border: none;
+      font-size: 13px;
+      cursor: pointer;
+      left: 40px;
+      top: 200px;
       padding-left: 20px;
     }
 
@@ -887,7 +906,7 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 630px;
+      height: 667px;
       background-color: #171F26BF;
       border-radius: 20px;
       padding: 25px 20px;
@@ -1297,7 +1316,7 @@
 
     .sp-menu.expanded {
       height: auto;
-      min-height: 760px;
+      min-height: 797px;
     }
 
     .sp-play-icon {
@@ -1472,12 +1491,18 @@
 
           <div class="description-area">
             <div class="description-bg">
-              <textarea placeholder="Type your description here..."></textarea>
+              <textarea placeholder="Add any additional request information here"></textarea>
             </div>
             <div class="description-icons">
               <button class="icon-btn"><img src="./assets/CLIP.svg" alt=""></button>
+              <input placeholder="Link to any associated files here" class="landing">
 
-              <input placeholder="Paste your link here..." class="landing">
+            </div>
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="./assets/COMPANY.svg" alt=""></button>
+              <input placeholder="Type the name of your company" class="company">
+
             </div>
           </div>
 
@@ -1814,12 +1839,21 @@
 
           <div class="sp-description-area">
             <div class="sp-description-bg">
-              <textarea placeholder="Type your description here..."></textarea>
+              <textarea placeholder="Add any additional request information here"></textarea>
             </div>
-            <div class="sp-description-icons">
-              <button class="sp-icon-btn"><img src="./assets/PLUS.svg" alt=""></button>
-              <input placeholder="Paste your link here..." class="landing">
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="./assets/CLIP.svg" alt=""></button>
+              <input placeholder="Link to any associated files here" class="landing">
+
             </div>
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="./assets/COMPANY.svg" alt=""></button>
+              <input placeholder="Type the name of your company" class="company">
+
+            </div>
+
           </div>
 
           <!-- Priority Section -->
