@@ -195,7 +195,7 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 835px;
+      height: 850px;
       background-color: #151a1eff;
       border-radius: 20px;
       padding: 25px 20px;
@@ -544,7 +544,8 @@
       padding: 15px 15px;
       border-radius: 50px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 10px;
+      margin-bottom: 20px;
       position: relative;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -607,6 +608,8 @@
       opacity: 1;
       max-height: 200px;
       transform: translateY(0);
+      margin-top: -20px;
+      margin-bottom: 20px;
     }
 
     .priority-option {
@@ -662,7 +665,7 @@
 
     .menu.expanded {
       height: auto;
-      min-height: 820px;
+      min-height: 850px;
     }
 
     .landing {
@@ -671,7 +674,7 @@
       justify-content: center;
       align-items: center;
       background-color: #D9D9D91A;
-      width: 307px;
+      width: 337px;
       height: 28px;
       border-radius: 20px;
       color: white;
@@ -679,7 +682,6 @@
       border: none;
       font-size: 13px;
       cursor: pointer;
-      left: 40px;
       top: 159px;
       padding-left: 20px;
     }
@@ -690,7 +692,7 @@
       justify-content: center;
       align-items: center;
       background-color: #D9D9D91A;
-      width: 307px;
+      width: 337px;
       height: 28px;
       border-radius: 20px;
       color: white;
@@ -698,7 +700,6 @@
       border: none;
       font-size: 13px;
       cursor: pointer;
-      left: 40px;
       top: 200px;
       padding-left: 20px;
     }
@@ -706,6 +707,41 @@
     input:focus {
       outline: none;
       border: none;
+    }
+
+    .link-button {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 22px;
+      left: 20px;
+      background-color: #D9D9D91A;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .link-button img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .associated-files {
+      position: absolute;
+      bottom: 24px;
+      left: 70px;
+      color: white;
+      font-family: 'Mont', sans-serif;
+      font-size: 10px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reacción al abrir Priority (usa .menu.expanded agregado por JS) */
+    .menu.expanded .link-button,
+    .menu.expanded .associated-files {
+      transform: translateY(-20px);
     }
   </style>
 
@@ -906,7 +942,7 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 667px;
+      height: 685px;
       background-color: #171F26BF;
       border-radius: 20px;
       padding: 25px 20px;
@@ -1198,7 +1234,8 @@
       padding: 15px 15px;
       border-radius: 50px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 8px;
+      margin-bottom: 20px;
       position: relative;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -1249,7 +1286,8 @@
       width: 380px;
       background-color: #171F26FA;
       border-radius: 0 0 20px 20px;
-      margin-top: 0px;
+      margin-top: -20px;
+      margin-bottom: 20px;
       opacity: 0;
       max-height: 0;
       overflow: hidden;
@@ -1316,7 +1354,7 @@
 
     .sp-menu.expanded {
       height: auto;
-      min-height: 797px;
+      min-height: 812px;
     }
 
     .sp-play-icon {
@@ -1423,6 +1461,42 @@
       left: 82px;
       background-color: #252c31ff;
     }
+
+
+    .sp-link-button {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      bottom: 30px;
+      left: 20px;
+      background-color: #D9D9D91A;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      transition: transform 3.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sp-link-button img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .sp-associated-files {
+      position: absolute;
+      bottom: 32px;
+      left: 70px;
+      color: white;
+      font-family: 'Mont', sans-serif;
+      font-size: 10px;
+      transition: transform 3.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reacción al abrir Priority (usa .menu.expanded agregado por JS) */
+    .sp-menu.expanded .sp-link-button,
+    .sp-menu.expanded .sp-associated-files {
+      transform: translateY(0px);
+    }
   </style>
   <link rel="stylesheet" href="rspv800.css">
 </head>
@@ -1487,24 +1561,9 @@
 
 
 
+
+
         <div class="hidden-section">
-
-          <div class="description-area">
-            <div class="description-bg">
-              <textarea placeholder="Add any additional request information here"></textarea>
-            </div>
-            <div class="description-icons">
-              <button class="icon-btn"><img src="./assets/CLIP.svg" alt=""></button>
-              <input placeholder="Link to any associated files here" class="landing">
-
-            </div>
-
-            <div class="description-icons">
-              <button class="icon-btn"><img src="./assets/COMPANY.svg" alt=""></button>
-              <input placeholder="Type the name of your company" class="company">
-
-            </div>
-          </div>
 
           <!-- Priority Section -->
           <div class="priority-section" id="priority-section">
@@ -1517,6 +1576,38 @@
             <div class="priority-option" data-value="p2">P2 - Medium</div>
             <div class="priority-option" data-value="p3">P3 - Low</div>
           </div>
+
+          <div class="description-area">
+            <div class="description-bg">
+              <textarea placeholder="Add any additional request&#10;information here"></textarea>
+            </div>
+
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="" alt=""></button>
+              <input placeholder="Company's name" class="landing">
+
+            </div>
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="" alt=""></button>
+              <input placeholder="Paste your link here..." class="company">
+
+            </div>
+
+
+          </div>
+
+
+          <div class="link-button">
+
+            <img class="plus-bottom" src="./assets/CLIP.svg" alt="">
+
+          </div>
+
+          <p class="associated-files">
+            Link to any associated files here
+          </p>
 
           <!-- Submit Button -->
           <button class="submit-btn">Submit</button>
@@ -1837,25 +1928,6 @@
 
         <div class="sp-hidden-section">
 
-          <div class="sp-description-area">
-            <div class="sp-description-bg">
-              <textarea placeholder="Add any additional request information here"></textarea>
-            </div>
-
-            <div class="description-icons">
-              <button class="icon-btn"><img src="./assets/CLIP.svg" alt=""></button>
-              <input placeholder="Link to any associated files here" class="landing">
-
-            </div>
-
-            <div class="description-icons">
-              <button class="icon-btn"><img src="./assets/COMPANY.svg" alt=""></button>
-              <input placeholder="Type the name of your company" class="company">
-
-            </div>
-
-          </div>
-
           <!-- Priority Section -->
           <div class="sp-priority-section" id="sp-priority-section">
             <span id="sp-priority-text">Priority</span>
@@ -1867,6 +1939,39 @@
             <div class="sp-priority-option" data-value="p2">P2 - Medium</div>
             <div class="sp-priority-option" data-value="p3">P3 - Low</div>
           </div>
+
+          <div class="description-area">
+            <div class="description-bg">
+              <textarea placeholder="Add any additional request&#10;information here"></textarea>
+            </div>
+
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="" alt=""></button>
+              <input placeholder="Company's name" class="landing">
+
+            </div>
+
+            <div class="description-icons">
+              <button class="icon-btn"><img src="" alt=""></button>
+              <input placeholder="Paste your link here..." class="company">
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="sp-link-button">
+
+            <img class="sp-plus-bottom" src="./assets/CLIP.svg" alt="">
+
+          </div>
+
+          <p class="sp-associated-files">
+            Link to any associated files here
+          </p>
 
           <!-- Submit Button -->
           <button class="sp-submit-btn">Submit</button>
