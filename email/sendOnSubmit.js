@@ -65,7 +65,7 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
             <td width="50%" valign="top" style="padding:10px;">
               <table width="100%" cellpadding="0" cellspacing="0" style="background:#1a1d21 !important; border-radius:12px; overflow:hidden;">
                 <tr>
-                  <td><img src="{{card3_image}}" class="email-card-img"></td>
+                  <td><img src="https://valiantstudio-my.sharepoint.com/personal/mercs_valiantstudio_art/Documents/Preview/webpImages/image3.webp" class="email-card-img"></td>
                 </tr>
                 <tr>
                   <td style="padding:12px;">
