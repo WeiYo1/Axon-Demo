@@ -1,0 +1,157 @@
+{
+  "images": {
+    "firstPage": {
+      "imageConvert": {
+        "title": "Image convert",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image1_qzjzdl.webp"
+      },
+      "videoConvert": {
+        "title": "Video convert",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image10_jnrl74.webp"
+      },
+      "infographic": {
+        "title": "Infographic",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516191/image15_cmnkqb.webp"
+      },
+      "carousel": {
+        "title": "Carusel",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image11_qjtjmt.webp"
+      },
+      "review": {
+        "title": "Review",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516174/image6_mrhw1t.webp"
+      },
+      "notes": {
+        "title": "Notes",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516176/image7_xot5rj.webp"
+      },
+      "pop": {
+        "title": "Pop",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image3_u1tyik.webp"
+      },
+      "rotate": {
+        "title": "Rotate",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516169/image4_s7lzwn.webp"
+      },
+      "float": {
+        "title": "Float",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image14_iwki9k.webp"
+      },
+      "123Steps": {
+        "title": "1-2-3 Steps",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image2_bihrkf.webp"
+      },
+      "stream": {
+        "title": "Stream",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image12_tn5wiv.webp"
+      },
+      "falling": {
+        "title": "Falling",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image13_snagtl.webp"
+      },
+      "beforeAfter": {
+        "title": "Before After",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516170/image5_bbtg9c.webp"
+      },
+      "grid": {
+        "title": "Grid",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516177/image8_lpj8yq.webp"
+      },
+      "gamifiedQuiz": {
+        "title": "Gamified Quiz",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image9_pojky7.webp"
+      },
+      "gamidiedProductPage": {
+        "title": "Gamified Product Page",
+        "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516196/image16_jfs7jm.webp"
+      }
+    },
+    "secondPage": {
+      "15staticVideo": {
+        "staticVideo": {
+          "title": "Static Video",
+          "subtitle": "no animation, no music",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-01_sogyss.webp"
+        },
+        "staticVideo2": {
+          "title": "Static Video",
+          "subtitle": "no animation, with music",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-02_tagohs.webp"
+        },
+        "staticVideo3": {
+          "title": "Static Video",
+          "subtitle": "with animation, no music",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-03_umvz5b.webp"
+        },
+        "staticVideo4": {
+          "title": "Static Video",
+          "subtitle": "with animation, and music",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-04_mee883.webp"
+        }
+      },
+      "60sVideo": {
+        "imageMashup": {
+          "title": "Image mash up",
+          "subtitle": "multi-statics + subtle animation + music + texts animations + logo",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516158/59s-video-01_xj0ieo.webp"
+        },
+        "videoAndImage": {
+          "title": "Video and Image",
+          "subtitle": "mash up of top videos + statics + cool transitions + music",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516159/59s-video-02_ujsztd.webp"
+        },
+        "product": {
+          "tilte": "Product",
+          "subtitle": "multi-statics + music + logo",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-02-new_f1qw89.webp"
+        }
+      },
+      "videoEditing": {
+        "addingSubtitles": {
+          "title": "Adding Subtitles",
+          "subtitle": "captions",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522587/vid-edit-01_qeotoj.webp"
+        },
+        "adding": {
+          "title": "Adding",
+          "subtitle": "disclaimer",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522593/vid-edit-02_kl7eqp.webp"
+        }
+      },
+      "ugc": {
+        "product": {
+          "title": "Product",
+          "subtitle": "review",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522575/ugc-01_ktmiwz.webp"
+        },
+        "product2": {
+          "title": "Product",
+          "subtitle": "try on",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522578/ugc-02_qpa75z.webp"
+        }
+      },
+      "AIugc": {
+        "ai": {
+          "title": "AI",
+          "subtitle": "Intro",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-01_trzjwi.webp"
+        },
+        "product": {
+          "title": "Product",
+          "subtitle": "review",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-03_ialzzm.webp"
+        },
+        "product2": {
+          "title": "Product",
+          "subtitle": "showcasing",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-04_c5xse7.webp"
+        },
+        "street": {
+          "title": "Street",
+          "subtitle": "interview",
+          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516165/ai-ugc-05_hrbg1k.webp"
+        }
+      }
+    }
+  }
+}
