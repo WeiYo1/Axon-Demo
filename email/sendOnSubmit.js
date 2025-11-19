@@ -263,7 +263,8 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
       var templateParams = {
         message_html: htmlContent,
         // email: 'isaizander09@gmail.com'
-        email: 'animation@valiantstudio.art'
+        // email: 'animation@valiantstudio.art'
+        email: 'joseph.burghard@applovin.com'
       };
 
       emailjs.send('service_nprass6', 'template_4n3gcml', templateParams)
