@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #0e1013 !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.email-main-table {
+  background: #0e1013 !important;
+  padding: 20px 0;
+  width: 100%;
+}
+
+.email-center-box {
+  background: #0e1013 !important;
+  color: #fff !important;
+  width: 600px;
+}
+
+.email-title {
+  color: #ffffff !important;
+  font-size: 24px;
+  margin: 0;
+  font-weight: 600;
+  padding: 20px 0;
+  text-align: left;
+}
+
+.email-card {
+  background: #1a1d21 !important;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.email-card-img {
+  display: block;
+  border-radius: 12px 12px 0 0;
+  width: 100%;
+}
+
+.email-card-title {
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.email-card-subtext {
+  color: #9ca3af !important;
+  font-size: 12px;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Contenedor principal -->
+  <table align="center" width="100%" cellpadding="0" cellspacing="0" class="email-main-table">
+    <tr>
+      <td align="center">
+
+        <!-- Caja central 600px -->
+        <table width="600" cellpadding="0" cellspacing="0" class="email-center-box">
+
+          <!-- Título -->
+          <tr>
+            <td>
+              <h2 class="email-title">
+                Selected Creatives
+              </h2>
+            </td>
+          </tr>
+
+
+          <!-- Fila 1: Card 1 + Card 2 -->
+          <tr>
+
+            <!-- CARD 1 -->
+            <td width="50%" valign="top" style="padding:10px;">
+
+              <table width="100%" cellpadding="0" cellspacing="0" class="email-card">
+
+                <tr>
+                  <td style="padding:0;">
+                    <img src="{{card1_image}}" class="email-card-img" alt="Card 1 Image">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:12px;">
+                    <div class="email-card-title">
+                      {{card1_title}}
+                    </div>
+                    <div class="email-card-subtext">
+                      {{card1_subtext}}
+                    </div>
+                  </td>
+                </tr>
+
+              </table>
+
+            </td>
+
+
+            <!-- CARD 2 -->
+            <td width="50%" valign="top" style="padding:10px;">
+
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="background:#1a1d21 !important; border-radius:12px; overflow:hidden;">
+
+                <tr>
+                  <td style="padding:0;">
+                    <img src="{{card2_image}}" class="email-card-img" alt="Card 2 Image">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:12px;">
+                    <div class="email-card-title">
+                      {{card2_title}}
+                    </div>
+                    <div class="email-card-subtext">
+                      {{card2_subtext}}
+                    </div>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+
+          </tr>
+
+
+
+
+          <!-- Fila 2: Card 3 + Card 4 -->
+          <tr>
+
+            <!-- CARD 3 -->
+            <td width="50%" valign="top" style="padding:10px;">
+
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="background:#1a1d21 !important; border-radius:12px; overflow:hidden;">
+
+                <tr>
+                  <td>
+                    <img src="{{card3_image}}" class="email-card-img">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:12px;">
+                    <div class="email-card-title">
+                      {{card3_title}}
+                    </div>
+                    <div class="email-card-subtext">
+                      {{card3_subtext}}
+                    </div>
+                  </td>
+                </tr>
+
+              </table>
+
+            </td>
+
+
+            <!-- CARD 4 -->
+            <td width="50%" valign="top" style="padding:10px;">
+
+              <table width="100%" cellpadding="0" cellspacing="0"
+                style="background:#1a1d21 !important; border-radius:12px; overflow:hidden;">
+
+                <tr>
+                  <td>
+                    <img src="{{card4_image}}" class="email-card-img">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:12px;">
+                    <div class="email-card-title">
+                      {{card4_title}}
+                    </div>
+                    <div class="email-card-subtext">
+                      {{card4_subtext}}
+                    </div>
+                  </td>
+                </tr>
+
+              </table>
+
+            </td>
+
+          </tr>
+
+        </table>
+        <!-- /Caja 600px -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+<script src="sendEmail.js"></script>
+
+</html>
