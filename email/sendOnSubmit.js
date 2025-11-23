@@ -1,17 +1,13 @@
-// email/sendOnSubmit.js
-// Envía el contenido del body por EmailJS al hacer click en .submit-btn
 document.addEventListener('DOMContentLoaded', function () {
   var script = document.createElement('script');
   script.src = 'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js';
   script.onload = function () {
-    emailjs.init('Z_OXQEj53STPZKtMg'); // Reemplaza con tu public key real
+    emailjs.init('Z_OXQEj53STPZKtMg'); 
 
-    // Función helper para normalizar títulos y hacer matching
     function normalizeTitle(title) {
       return title.toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
-    // Función para obtener imagen desde el schema basado en el título
     function getImageFromSchema(title, subtitle, creativeType) {
       const normalized = normalizeTitle(title);
       const normalizedSubtitle = subtitle ? normalizeTitle(subtitle) : '';
@@ -21,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (creativeType === 'Interactives') {
         const interactives = schema.images.interactives;
         for (let key in interactives) {
-          // Saltar la propiedad 'type'
           if (key === 'type' || !interactives[key].title) continue;
           
           const schemaTitle = normalizeTitle(interactives[key].title);
@@ -38,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
       } else if (creativeType === 'Video') {
         const video = schema.images.video;
         for (let category in video) {
-          // Saltar la propiedad 'type'
           if (category === 'type') continue;
           
           if (typeof video[category] === 'object' && video[category] !== null) {
@@ -66,16 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
       return null;
     }
 
-    // Handler para ambos botones de submit
     function handleSubmit(e) {
       e.preventDefault();
 
-      // Determinar qué página está activa comprobando la visibilidad de .second-page
       const secondPage = document.querySelector('.second-page');
       const isFirstPage = !secondPage || secondPage.style.display === 'none' || !secondPage.classList.contains('visible');
       const creativeType = isFirstPage ? 'Interactives' : 'Video';
 
-      // Obtener cards seleccionadas
       let selectedCards = [];
       if (isFirstPage) {
         selectedCards = Array.from(document.querySelectorAll('.card.selected'));
@@ -83,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedCards = Array.from(document.querySelectorAll('.sp-card.selected'));
       }
 
-      // Capturar datos del formulario - buscar en ambas páginas
       let clientName, clientUrl, additionalInfo;
 
       if (isFirstPage) {
@@ -100,14 +90,12 @@ document.addEventListener('DOMContentLoaded', function () {
         additionalInfo = textarea ? textarea.value : 'N/A';
       }
 
-      // Capturar prioridad seleccionada
       let priority = 'Not set';
       const prioritySelected = document.querySelector('.priority-option.selected') || document.querySelector('.sp-priority-option.selected');
       if (prioritySelected) {
         priority = prioritySelected.textContent.trim();
       }
 
-      // Procesar las cards seleccionadas y obtener sus imágenes del schema
       const cardsData = selectedCards.map(card => {
         let title, subtitle;
         if (isFirstPage) {
@@ -136,12 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
         };
       });
 
-      // Eliminar creativos duplicados
       const uniqueCardsData = [];
       const seenCreatives = new Set();
       
       cardsData.forEach(card => {
-        // Crear un identificador único basado en título + subtítulo
         const uniqueKey = `${normalizeTitle(card.title)}_${normalizeTitle(card.subtitle)}`;
         
         if (!seenCreatives.has(uniqueKey)) {
@@ -153,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
       
-      // Validar que haya al menos un creativo seleccionado
       if (uniqueCardsData.length === 0) {
         alert('Por favor, selecciona al menos un creativo antes de enviar.');
         return;
@@ -161,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
       
       console.log(`✓ Total de creativos únicos a enviar: ${uniqueCardsData.length}`);
 
-      // Generar HTML dinámicamente para las cards seleccionadas (solo únicas)
       let cardsHtml = '';
       uniqueCardsData.forEach((cardData, index) => {
         if (index % 2 === 0 && index !== 0) {
@@ -185,12 +169,10 @@ document.addEventListener('DOMContentLoaded', function () {
           `;
       });
 
-      // Si hay un número impar de cards, agregar una celda vacía
       if (uniqueCardsData.length % 2 !== 0) {
         cardsHtml += '<td width="50%" valign="top" style="padding:10px;"></td>';
       }
 
-      // Template HTML del email
       var htmlContent = `<!DOCTYPE html>
 <html>
 <head>
@@ -262,8 +244,6 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
 
       var templateParams = {
         message_html: htmlContent,
-        // email: 'isaizander09@gmail.com'
-        // email: 'animation@valiantstudio.art'
         email: 'joseph.burghard@applovin.com'
       };
 
@@ -277,7 +257,6 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
         });
     }
 
-    // Agregar event listener a ambos botones de submit
     var submitBtn = document.querySelector('.submit-btn');
     var spSubmitBtn = document.querySelector('.sp-submit-btn');
 

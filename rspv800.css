@@ -602,6 +602,10 @@
     padding-left: 20px;
   }
 
+  .menu.menu-expanded {
+    min-height: 260px;
+  }
+
 }
 
 
@@ -1051,6 +1055,10 @@
 
 @media screen and (max-width: 400px) {
 
+  .sp-menu.menu-expanded {
+    min-height: 310px;
+  }
+
   .second-page .sp-shadow {
     position: fixed;
     width: 8000px;
@@ -1282,6 +1290,8 @@
     top: -15px;
     padding-left: 20px;
   }
+
+
 
 
 }

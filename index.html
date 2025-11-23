@@ -186,7 +186,7 @@
     }
 
     .menu {
-      position: fixed;
+      position: absolute;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -195,18 +195,20 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 850px;
+      max-height: calc(100vh - 110px);
       background-color: #151a1eff;
       border-radius: 20px;
-      padding: 25px 20px;
+      padding: 25px 25px;
       box-sizing: border-box;
       gap: 10px;
       border: 1px solid #171F26BF;
+      transition: all 0.4s ease;
     }
+
 
     .logo {
       position: fixed;
-      top: 30px;
+      top: 23px;
       left: 20px;
       width: 150px;
       height: auto;
@@ -352,38 +354,33 @@
       flex-wrap: wrap;
       gap: 8px;
       width: 100%;
-      height: auto;
+      height: 85px;
+      max-height: 85px;
       justify-content: flex-start;
-      align-items: center;
-      transition: all 0.4s ease;
-    }
-
-    /* Cuando el menú está expandido (dropdown abierto), aplicar scroll al grid */
-    .menu.expanded .interactive-buttons-grid {
-      height: 120px;
       align-items: flex-start;
       align-content: flex-start;
       overflow-y: auto;
       overflow-x: hidden;
       padding-right: 5px;
+      transition: all 0.4s ease;
     }
 
-    /* Custom scrollbar for interactive-buttons-grid cuando está expandido */
-    .menu.expanded .interactive-buttons-grid::-webkit-scrollbar {
+    /* Custom scrollbar for interactive-buttons-grid */
+    .interactive-buttons-grid::-webkit-scrollbar {
       width: 6px;
     }
 
-    .menu.expanded .interactive-buttons-grid::-webkit-scrollbar-track {
+    .interactive-buttons-grid::-webkit-scrollbar-track {
       background: rgba(23, 31, 38, 0.3);
       border-radius: 10px;
     }
 
-    .menu.expanded .interactive-buttons-grid::-webkit-scrollbar-thumb {
+    .interactive-buttons-grid::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.3);
       border-radius: 10px;
     }
 
-    .menu.expanded .interactive-buttons-grid::-webkit-scrollbar-thumb:hover {
+    .interactive-buttons-grid::-webkit-scrollbar-thumb:hover {
       background: rgba(255, 255, 255, 0.5);
     }
 
@@ -447,16 +444,16 @@
 
     .line-1 {
       position: absolute;
-      width: 250px;
+      width: 180px;
       height: 1.5px;
       top: 43px;
-      left: 135px;
+      left: 155px;
       background-color: #252c31ff;
     }
 
     .line-2 {
       position: absolute;
-      width: 250px;
+      width: 237px;
       height: 1.5px;
       top: 143px;
       left: 130px;
@@ -476,7 +473,8 @@
     }
 
     .description-area {
-      width: 100%;
+      width: 370px;
+      height: 200px;
       background-color: #171F26FA;
       border-radius: 22px;
       padding: 10px;
@@ -493,11 +491,11 @@
       font-size: 12px;
       resize: none;
       outline: none;
-      min-height: 80px;
+      min-height: 50px;
     }
 
     .description-area textarea::placeholder {
-      color: #6b7280;
+      color: white;
     }
 
     .description-bg {
@@ -506,7 +504,7 @@
       border-radius: 22px;
       padding: 15px;
       box-sizing: border-box;
-      min-height: 140px;
+      min-height: 100px;
       position: relative;
     }
 
@@ -541,11 +539,10 @@
       justify-content: space-between;
       align-items: center;
       background-color: #171F26FA;
-      padding: 15px 15px;
+      padding: 12px 15px;
       border-radius: 50px;
       cursor: pointer;
-      margin-top: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       position: relative;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -581,11 +578,17 @@
       cursor: pointer;
       border: none;
       align-self: flex-end;
-      min-width: 150px;
+      min-width: 145px;
       bottom: 21px;
-      transition: all 0.2s;
       position: absolute;
       left: 59%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .submit-btn.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
     }
 
     .submit-btn:hover {
@@ -608,8 +611,8 @@
       opacity: 1;
       max-height: 200px;
       transform: translateY(0);
-      margin-top: -20px;
-      margin-bottom: 20px;
+      margin-top: -10px;
+      margin-bottom: 10px;
     }
 
     .priority-option {
@@ -663,9 +666,8 @@
       transform: translateY(0) scale(1.02);
     }
 
-    .menu.expanded {
-      height: auto;
-      min-height: 850px;
+    .menu.menu-expanded {
+      min-height: 605px;
     }
 
     .landing {
@@ -674,16 +676,16 @@
       justify-content: center;
       align-items: center;
       background-color: #D9D9D91A;
-      width: 337px;
+      width: 327px;
       height: 28px;
       border-radius: 20px;
       color: white;
       font-family: 'Mont', sans-serif;
       border: none;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
-      top: 159px;
       padding-left: 20px;
+      margin-top: -5px;
     }
 
     .company {
@@ -692,16 +694,22 @@
       justify-content: center;
       align-items: center;
       background-color: #D9D9D91A;
-      width: 337px;
+      width: 327px;
       height: 28px;
       border-radius: 20px;
       color: white;
       font-family: 'Mont', sans-serif;
       border: none;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
-      top: 200px;
+      top: 185px;
       padding-left: 20px;
+      margin-top: -25px;
+    }
+
+    .landing::placeholder,
+    .company::placeholder {
+      color: white;
     }
 
     input:focus {
@@ -720,7 +728,13 @@
       width: 40px;
       height: 40px;
       border-radius: 10px;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .link-button.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
     }
 
     .link-button img {
@@ -735,13 +749,58 @@
       color: white;
       font-family: 'Mont', sans-serif;
       font-size: 10px;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    /* Reacción al abrir Priority (usa .menu.expanded agregado por JS) */
-    .menu.expanded .link-button,
-    .menu.expanded .associated-files {
-      transform: translateY(-20px);
+    .associated-files.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
+    }
+
+    /* Menu toggle arrow button */
+    .menu-toggle-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;      
+      background-color: #252c31ff;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .menu-toggle-btn:hover {
+      background-color: #343d4d;
+    }
+
+    .menu-toggle-btn img {
+      width: 9px;
+      height: 9px;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-toggle-btn.expanded img {
+      transform: rotate(212deg);
+    }
+
+    /* Hidden menu content */
+    .menu-content-hidden {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+
+    .menu-content-hidden.show {
+      max-height: 2000px;
+      opacity: 1;
     }
   </style>
 
@@ -763,17 +822,7 @@
 
     }
 
-    .second-page {
-      display: none;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      width: 100vw;
-      height: 100vh;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.5s cubic-bezier(.4, 0, .2, 1), transform 0.5s cubic-bezier(.4, 0, .2, 1);
-    }
+
 
     .sp-cards-container {
       position: fixed;
@@ -942,17 +991,20 @@
       left: 20px;
       width: 420px;
       min-width: 420px;
-      height: 685px;
+      height: auto;
+      min-height: 170px;
+      max-height: calc(100vh - 110px);
       background-color: #171F26BF;
       border-radius: 20px;
       padding: 25px 20px;
       gap: 12px;
       box-sizing: border-box;
+      transition: all 0.4s ease;
     }
 
     .sp-logo {
       position: fixed;
-      top: 30px;
+      top: 23px;
       left: 20px;
       width: 150px;
       height: auto;
@@ -964,7 +1016,7 @@
       color: white;
       font-size: 14px;
       font-weight: 400;
-      margin: 0;
+      margin: 6px;
       margin-top: 13px;
       font-family: 'Mont', sans-serif;
     }
@@ -1183,11 +1235,11 @@
       font-size: 12px;
       resize: none;
       outline: none;
-      min-height: 80px;
+      min-height: 60px;
     }
 
     .sp-description-area textarea::placeholder {
-      color: #6b7280;
+      color: white;
     }
 
     .sp-description-bg {
@@ -1231,11 +1283,10 @@
       justify-content: space-between;
       align-items: center;
       background-color: #171F26FA;
-      padding: 15px 15px;
+      padding: 12px 15px;
       border-radius: 50px;
       cursor: pointer;
-      margin-top: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       position: relative;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -1273,9 +1324,15 @@
       cursor: pointer;
       border: none;
       align-self: flex-end;
-      bottom: 26px;
-      min-width: 150px;
-      transition: all 0.2s;
+      bottom: 10px;
+      min-width: 145px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .sp-submit-btn.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
     }
 
     .sp-submit-btn:hover {
@@ -1299,6 +1356,8 @@
       opacity: 1;
       max-height: 200px;
       transform: translateY(0);
+           margin-top: -10px;
+      margin-bottom: 10px;
     }
 
     .sp-priority-option {
@@ -1352,9 +1411,8 @@
       transform: translateY(0) scale(1.02);
     }
 
-    .sp-menu.expanded {
-      height: auto;
-      min-height: 812px;
+    .sp-menu.menu-expanded {
+      min-height: 605px;
     }
 
     .sp-play-icon {
@@ -1446,19 +1504,19 @@
 
     .sp-line-1 {
       position: absolute;
-      width: 250px;
+      width: 180px;
       height: 1.5px;
       top: 43px;
-      left: 135px;
+      left: 155px;
       background-color: #252c31ff;
     }
 
     .sp-line-2 {
       position: absolute;
-      width: 290px;
+      width: 237px;
       height: 1.5px;
-      top: 148px;
-      left: 82px;
+      top: 143px;
+      left: 130px;
       background-color: #252c31ff;
     }
 
@@ -1468,13 +1526,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      bottom: 30px;
+      bottom: 17px;
       left: 20px;
       background-color: #D9D9D91A;
       width: 40px;
       height: 40px;
       border-radius: 10px;
-      transition: transform 3.5s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .sp-link-button.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
     }
 
     .sp-link-button img {
@@ -1484,18 +1548,62 @@
 
     .sp-associated-files {
       position: absolute;
-      bottom: 32px;
+      bottom: 17px;
       left: 70px;
       color: white;
       font-family: 'Mont', sans-serif;
       font-size: 10px;
-      transition: transform 3.5s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
-    /* Reacción al abrir Priority (usa .menu.expanded agregado por JS) */
-    .sp-menu.expanded .sp-link-button,
-    .sp-menu.expanded .sp-associated-files {
-      transform: translateY(0px);
+    .sp-associated-files.fade-in {
+      opacity: 1;
+      transition-delay: 0.5s;
+    }
+
+    /* Second page menu toggle arrow button */
+    .sp-menu-toggle-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;      
+      background-color: #252c31ff;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .sp-menu-toggle-btn:hover {
+      background-color: #343d4d;
+    }
+
+    .sp-menu-toggle-btn img {
+      width: 9px;
+      height: 9px;
+      transition: transform 0.3s ease;
+    }
+
+    .sp-menu-toggle-btn.expanded img {
+      transform: rotate(212deg);
+    }
+
+    .sp-menu-content-hidden {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+    }
+
+    .sp-menu-content-hidden.show {
+      max-height: 2000px;
+      opacity: 1;
     }
   </style>
   <link rel="stylesheet" href="rspv800.css">
@@ -1518,6 +1626,10 @@
 
       <div class="menu">
 
+        <button class="menu-toggle-btn" id="menu-toggle">
+          <img src="./assets/ARROW.svg" alt="Toggle menu">
+        </button>
+
         <div class="menu-top-container">
 
           <!-- Creative Type Section -->
@@ -1532,7 +1644,7 @@
         </div>
 
 
-        <div class="interactives-container">
+        <div class="interactives-container menu-content-hidden">
 
           <!-- Template Section -->
           <h3 class="interactive-type">Interactives</h3>
@@ -1563,7 +1675,7 @@
 
 
 
-        <div class="hidden-section">
+        <div class="hidden-section menu-content-hidden">
 
           <!-- Priority Section -->
           <div class="priority-section" id="priority-section">
@@ -1890,6 +2002,10 @@
 
       <div class="sp-menu">
 
+        <button class="sp-menu-toggle-btn" id="sp-menu-toggle">
+          <img src="./assets/ARROW.svg" alt="Toggle menu">
+        </button>
+
         <div class="sp-menu-top-container">
 
           <!-- Creative Type Section -->
@@ -1905,7 +2021,7 @@
 
         </div>
 
-        <div class="sp-interactives-container">
+        <div class="sp-interactives-container sp-menu-content-hidden">
 
           <h3 class="interactive-type">Video</h3>
           <div class="sp-line-2"></div>
@@ -1924,7 +2040,7 @@
         </div>
 
 
-        <div class="sp-hidden-section">
+        <div class="sp-hidden-section sp-menu-content-hidden">
 
           <!-- Priority Section -->
           <div class="sp-priority-section" id="sp-priority-section">

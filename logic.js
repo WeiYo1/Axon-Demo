@@ -224,6 +224,8 @@ const prioritySection = document.getElementById('priority-section');
 const priorityDropdown = document.getElementById('priority-dropdown');
 const priorityText = document.getElementById('priority-text');
 const menu = document.querySelector('.menu');
+const landingInput = document.querySelector('.first-page .landing');
+const companyInput = document.querySelector('.first-page .company');
 let isDropdownOpen = false;
 
 prioritySection.addEventListener('click', function () {
@@ -233,10 +235,16 @@ prioritySection.addEventListener('click', function () {
     prioritySection.classList.add('open');
     priorityDropdown.classList.add('open');
     menu.classList.add('expanded');
+    // Hide landing and company inputs when dropdown opens
+    if (landingInput) landingInput.style.display = 'none';
+    if (companyInput) companyInput.style.display = 'none';
   } else {
     prioritySection.classList.remove('open');
     priorityDropdown.classList.remove('open');
     menu.classList.remove('expanded');
+    // Show landing and company inputs when dropdown closes
+    if (landingInput) landingInput.style.display = 'flex';
+    if (companyInput) companyInput.style.display = 'flex';
   }
 });
 
@@ -260,6 +268,9 @@ priorityOptions.forEach(option => {
     prioritySection.classList.remove('open');
     priorityDropdown.classList.remove('open');
     menu.classList.remove('expanded');
+    // Show landing and company inputs when dropdown closes
+    if (landingInput) landingInput.style.display = 'flex';
+    if (companyInput) companyInput.style.display = 'flex';
   });
 });
 
@@ -271,6 +282,9 @@ document.addEventListener('click', function (e) {
       prioritySection.classList.remove('open');
       priorityDropdown.classList.remove('open');
       menu.classList.remove('expanded');
+      // Show landing and company inputs when dropdown closes
+      if (landingInput) landingInput.style.display = 'flex';
+      if (companyInput) companyInput.style.display = 'flex';
     }
   }
 });
@@ -512,6 +526,8 @@ const spPrioritySection = document.getElementById('sp-priority-section');
 const spPriorityDropdown = document.getElementById('sp-priority-dropdown');
 const spPriorityText = document.getElementById('sp-priority-text');
 const spMenu = document.querySelector('.sp-menu');
+const spLandingInput = document.querySelector('.second-page .landing');
+const spCompanyInput = document.querySelector('.second-page .company');
 let isSpDropdownOpen = false;
 
 if (spPrioritySection) {
@@ -522,10 +538,16 @@ if (spPrioritySection) {
       spPrioritySection.classList.add('open');
       spPriorityDropdown.classList.add('open');
       spMenu.classList.add('expanded');
+      // Hide landing and company inputs when dropdown opens
+      if (spLandingInput) spLandingInput.style.display = 'none';
+      if (spCompanyInput) spCompanyInput.style.display = 'none';
     } else {
       spPrioritySection.classList.remove('open');
       spPriorityDropdown.classList.remove('open');
       spMenu.classList.remove('expanded');
+      // Show landing and company inputs when dropdown closes
+      if (spLandingInput) spLandingInput.style.display = 'flex';
+      if (spCompanyInput) spCompanyInput.style.display = 'flex';
     }
   });
 }
@@ -552,6 +574,9 @@ spPriorityOptions.forEach(option => {
     spPrioritySection.classList.remove('open');
     spPriorityDropdown.classList.remove('open');
     spMenu.classList.remove('expanded');
+    // Show landing and company inputs when dropdown closes
+    if (spLandingInput) spLandingInput.style.display = 'flex';
+    if (spCompanyInput) spCompanyInput.style.display = 'flex';
   });
 });
 
@@ -564,6 +589,9 @@ document.addEventListener('click', function (e) {
         spPrioritySection.classList.remove('open');
         spPriorityDropdown.classList.remove('open');
         spMenu.classList.remove('expanded');
+        // Show landing and company inputs when dropdown closes
+        if (spLandingInput) spLandingInput.style.display = 'flex';
+        if (spCompanyInput) spCompanyInput.style.display = 'flex';
       }
     }
   }
@@ -734,3 +762,103 @@ document.addEventListener('click', function (e) {
     // Intentionally do nothing to preserve selections
   }
 });
+
+// ==================== Menu Toggle Functionality ====================
+
+// First-page menu toggle
+const menuToggle = document.getElementById('menu-toggle');
+const firstPageMenu = document.querySelector('.first-page .menu');
+const menuHiddenContents = document.querySelectorAll('.first-page .menu-content-hidden');
+const linkButton = document.querySelector('.first-page .link-button');
+const associatedFiles = document.querySelector('.first-page .associated-files');
+const submitBtn = document.querySelector('.first-page .submit-btn');
+
+if (menuToggle) {
+  menuToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    
+    // Toggle the expanded class on the button and menu
+    menuToggle.classList.toggle('expanded');
+    if (firstPageMenu) {
+      firstPageMenu.classList.toggle('menu-expanded');
+    }
+    
+    // Check if we're opening or closing
+    const isOpening = !menuHiddenContents[0].classList.contains('show');
+    
+    if (isOpening) {
+      // Opening: Show content first, then fade in bottom elements after 1s
+      menuHiddenContents.forEach(content => {
+        content.classList.add('show');
+      });
+      
+      // Add fade-in class immediately (the delay is in CSS)
+      setTimeout(() => {
+        if (linkButton) linkButton.classList.add('fade-in');
+        if (associatedFiles) associatedFiles.classList.add('fade-in');
+        if (submitBtn) submitBtn.classList.add('fade-in');
+      }, 0);
+    } else {
+      // Closing: Fade out bottom elements first (0.5s), then hide content 0.5s later
+      if (linkButton) linkButton.classList.remove('fade-in');
+      if (associatedFiles) associatedFiles.classList.remove('fade-in');
+      if (submitBtn) submitBtn.classList.remove('fade-in');
+      
+      // Wait 0.5s for the 3 elements to fade out completely, then hide the rest of content
+      setTimeout(() => {
+        menuHiddenContents.forEach(content => {
+          content.classList.remove('show');
+        });
+      }, 10);
+    }
+  });
+}
+
+// Second-page menu toggle
+const spMenuToggle = document.getElementById('sp-menu-toggle');
+const secondPageMenu = document.querySelector('.second-page .sp-menu');
+const spMenuHiddenContents = document.querySelectorAll('.second-page .sp-menu-content-hidden');
+const spLinkButton = document.querySelector('.second-page .sp-link-button');
+const spAssociatedFiles = document.querySelector('.second-page .sp-associated-files');
+const spSubmitBtn = document.querySelector('.second-page .sp-submit-btn');
+
+if (spMenuToggle) {
+  spMenuToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    
+    // Toggle the expanded class on the button and menu
+    spMenuToggle.classList.toggle('expanded');
+    if (secondPageMenu) {
+      secondPageMenu.classList.toggle('menu-expanded');
+    }
+    
+    // Check if we're opening or closing
+    const isOpening = !spMenuHiddenContents[0].classList.contains('show');
+    
+    if (isOpening) {
+      // Opening: Show content first, then fade in bottom elements after 1s
+      spMenuHiddenContents.forEach(content => {
+        content.classList.add('show');
+      });
+      
+      // Add fade-in class immediately (the delay is in CSS)
+      setTimeout(() => {
+        if (spLinkButton) spLinkButton.classList.add('fade-in');
+        if (spAssociatedFiles) spAssociatedFiles.classList.add('fade-in');
+        if (spSubmitBtn) spSubmitBtn.classList.add('fade-in');
+      }, 0);
+    } else {
+      // Closing: Fade out bottom elements first (0.5s), then hide content 0.5s later
+      if (spLinkButton) spLinkButton.classList.remove('fade-in');
+      if (spAssociatedFiles) spAssociatedFiles.classList.remove('fade-in');
+      if (spSubmitBtn) spSubmitBtn.classList.remove('fade-in');
+      
+      // Wait 0.5s for the 3 elements to fade out completely, then hide the rest of content
+      setTimeout(() => {
+        spMenuHiddenContents.forEach(content => {
+          content.classList.remove('show');
+        });
+      }, 10);
+    }
+  });
+}
