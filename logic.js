@@ -151,7 +151,7 @@ tabs.forEach(button => {
         // Asegurar que el tab de Video esté activo en second-page
         const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
         if (spVideoTab) spVideoTab.classList.add('active');
-        
+
         // Mostrar contenido de Video
         const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
         const ugcContent = document.querySelector('.second-page .ugc-content');
@@ -159,7 +159,7 @@ tabs.forEach(button => {
         if (videoContent) videoContent.style.display = 'flex';
         if (ugcContent) ugcContent.style.display = 'none';
         if (aiUgcContent) aiUgcContent.style.display = 'none';
-        
+
         // 显示所有 Video 相关内容，隐藏 UGC 和 AI UGC
         const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
         allSections.forEach(section => {
@@ -219,7 +219,7 @@ tabs.forEach(button => {
         // Asegurar que el tab de UGC esté activo en second-page
         const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
         if (spUgcTab) spUgcTab.classList.add('active');
-        
+
         // Mostrar contenido de UGC
         const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
         const ugcContent = document.querySelector('.second-page .ugc-content');
@@ -227,7 +227,7 @@ tabs.forEach(button => {
         if (videoContent) videoContent.style.display = 'none';
         if (ugcContent) ugcContent.style.display = 'flex';
         if (aiUgcContent) aiUgcContent.style.display = 'none';
-        
+
         // 隐藏所有其他内容区域，只显示 UGC
         const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
         allSections.forEach(section => {
@@ -258,7 +258,7 @@ tabs.forEach(button => {
             }
           }
         });
-        
+
         // 滚动到 UGC 内容区域
         setTimeout(() => {
           const targetElement = document.getElementById('ugc');
@@ -301,7 +301,7 @@ tabs.forEach(button => {
         // Asegurar que el tab de AI UGC esté activo en second-page
         const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
         if (spAiUgcTab) spAiUgcTab.classList.add('active');
-        
+
         // Mostrar contenido de AI UGC
         const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
         const ugcContent = document.querySelector('.second-page .ugc-content');
@@ -309,7 +309,7 @@ tabs.forEach(button => {
         if (videoContent) videoContent.style.display = 'none';
         if (ugcContent) ugcContent.style.display = 'none';
         if (aiUgcContent) aiUgcContent.style.display = 'flex';
-        
+
         // 隐藏所有其他内容区域，只显示 AI UGC
         const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
         allSections.forEach(section => {
@@ -340,7 +340,7 @@ tabs.forEach(button => {
             }
           }
         });
-        
+
         // 滚动到 AI UGC 内容区域
         setTimeout(() => {
           const targetElement = document.getElementById('ai-ugc');
@@ -501,6 +501,10 @@ const spPrimaryButtons = document.querySelectorAll('.second-page .sp-btn-primary
 const spSecondaryButtons = document.querySelectorAll('.second-page .sp-btn-secondary, .second-page .sp-59s-video-button');
 const spInteractivesButtons = document.querySelectorAll('.second-page .sp-interactives');
 
+setTimeout(() => {
+  menuToggleCLick()
+  spMenuToggleClick()
+}, 10);
 // Function to deactivate all buttons in SECOND PAGE only
 function deactivateAllSecondPageButtons() {
   spCreativeOptions.forEach(btn => btn.classList.remove('active'));
@@ -553,7 +557,11 @@ spCreativeOptions.forEach(button => {
 spTabs.forEach(button => {
   button.addEventListener('click', function () {
     const buttonText = this.textContent.trim();
-
+    // const menuToggle = document.getElementById('menu-toggle');
+    // const spMenuToggle = document.getElementById('sp-menu-toggle');
+    // console.log('menuToggle', menuToggle)
+    // menuToggle.click()
+    // spMenuToggle.click()
     // 获取所有内容容器
     const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
     const ugcContent = document.querySelector('.second-page .ugc-content');
@@ -573,12 +581,12 @@ spTabs.forEach(button => {
       if (spUgcTab) spUgcTab.classList.remove('active');
       if (spAiUgcTab) spAiUgcTab.classList.remove('active');
       if (spVideoTab) spVideoTab.classList.add('active');
-      
+
       // 显示 Video 内容，隐藏其他
       if (videoContent) videoContent.style.display = 'flex';
       if (ugcContent) ugcContent.style.display = 'none';
       if (aiUgcContent) aiUgcContent.style.display = 'none';
-      
+
       // 显示所有 Video 相关内容，隐藏 UGC 和 AI UGC
       const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
       allSections.forEach(section => {
@@ -622,12 +630,12 @@ spTabs.forEach(button => {
       if (spInterTab) spInterTab.classList.remove('active');
       if (spAiUgcTab) spAiUgcTab.classList.remove('active');
       if (spUgcTab) spUgcTab.classList.add('active');
-      
+
       // 显示 UGC 内容，隐藏其他
       if (videoContent) videoContent.style.display = 'none';
       if (ugcContent) ugcContent.style.display = 'flex';
       if (aiUgcContent) aiUgcContent.style.display = 'none';
-      
+
       // 隐藏所有其他内容区域，只显示 UGC
       const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
       allSections.forEach(section => {
@@ -658,7 +666,7 @@ spTabs.forEach(button => {
           }
         }
       });
-      
+
       // 滚动到 UGC 内容区域
       setTimeout(() => {
         const targetElement = document.getElementById('ugc');
@@ -685,12 +693,12 @@ spTabs.forEach(button => {
       if (spInterTab) spInterTab.classList.remove('active');
       if (spUgcTab) spUgcTab.classList.remove('active');
       if (spAiUgcTab) spAiUgcTab.classList.add('active');
-      
+
       // 显示 AI UGC 内容，隐藏其他
       if (videoContent) videoContent.style.display = 'none';
       if (ugcContent) ugcContent.style.display = 'none';
       if (aiUgcContent) aiUgcContent.style.display = 'flex';
-      
+
       // 隐藏所有其他内容区域，只显示 AI UGC
       const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
       allSections.forEach(section => {
@@ -721,7 +729,7 @@ spTabs.forEach(button => {
           }
         }
       });
-      
+
       // 滚动到 AI UGC 内容区域
       setTimeout(() => {
         const targetElement = document.getElementById('ai-ugc');
@@ -775,7 +783,7 @@ spTabs.forEach(button => {
         if (spUgcTab) spUgcTab.classList.remove('active');
         if (spAiUgcTab) spAiUgcTab.classList.remove('active');
         if (spInterTab) spInterTab.classList.add('active');
-        
+
         // 隐藏所有内容模块
         if (videoContent) videoContent.style.display = 'none';
         if (ugcContent) ugcContent.style.display = 'none';
@@ -938,7 +946,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
   const ugcContent = document.querySelector('.second-page .ugc-content');
   const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
-  
+
   // 默认显示 Video 内容，隐藏其他
   if (videoContent) videoContent.style.display = 'flex';
   if (ugcContent) ugcContent.style.display = 'none';
@@ -1223,24 +1231,24 @@ const associatedFiles = document.querySelector('.first-page .associated-files');
 const submitBtn = document.querySelector('.first-page .submit-btn');
 
 if (menuToggle) {
-  menuToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    
+  function menuToggleCLick(e) {
+    e?.stopPropagation();
+
     // Toggle the expanded class on the button and menu
     menuToggle.classList.toggle('expanded');
     if (firstPageMenu) {
       firstPageMenu.classList.toggle('menu-expanded');
     }
-    
+
     // Check if we're opening or closing
     const isOpening = !menuHiddenContents[0].classList.contains('show');
-    
+
     if (isOpening) {
       // Opening: Show content first, then fade in bottom elements after 1s
       menuHiddenContents.forEach(content => {
         content.classList.add('show');
       });
-      
+
       // Add fade-in class immediately (the delay is in CSS)
       setTimeout(() => {
         if (linkButton) linkButton.classList.add('fade-in');
@@ -1252,7 +1260,7 @@ if (menuToggle) {
       if (linkButton) linkButton.classList.remove('fade-in');
       if (associatedFiles) associatedFiles.classList.remove('fade-in');
       if (submitBtn) submitBtn.classList.remove('fade-in');
-      
+
       // Wait 0.5s for the 3 elements to fade out completely, then hide the rest of content
       setTimeout(() => {
         menuHiddenContents.forEach(content => {
@@ -1260,7 +1268,8 @@ if (menuToggle) {
         });
       }, 10);
     }
-  });
+  }
+  menuToggle.addEventListener('click', (e) => menuToggleCLick(e));
 }
 
 // Second-page menu toggle
@@ -1272,24 +1281,24 @@ const spAssociatedFiles = document.querySelector('.second-page .sp-associated-fi
 const spSubmitBtn = document.querySelector('.second-page .sp-submit-btn');
 
 if (spMenuToggle) {
-  spMenuToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    
+  function spMenuToggleClick(e) {
+    e?.stopPropagation();
+
     // Toggle the expanded class on the button and menu
     spMenuToggle.classList.toggle('expanded');
     if (secondPageMenu) {
       secondPageMenu.classList.toggle('menu-expanded');
     }
-    
+
     // Check if we're opening or closing
     const isOpening = !spMenuHiddenContents[0].classList.contains('show');
-    
+
     if (isOpening) {
       // Opening: Show content first, then fade in bottom elements after 1s
       spMenuHiddenContents.forEach(content => {
         content.classList.add('show');
       });
-      
+
       // Add fade-in class immediately (the delay is in CSS)
       setTimeout(() => {
         if (spLinkButton) spLinkButton.classList.add('fade-in');
@@ -1301,7 +1310,7 @@ if (spMenuToggle) {
       if (spLinkButton) spLinkButton.classList.remove('fade-in');
       if (spAssociatedFiles) spAssociatedFiles.classList.remove('fade-in');
       if (spSubmitBtn) spSubmitBtn.classList.remove('fade-in');
-      
+
       // Wait 0.5s for the 3 elements to fade out completely, then hide the rest of content
       setTimeout(() => {
         spMenuHiddenContents.forEach(content => {
@@ -1309,33 +1318,34 @@ if (spMenuToggle) {
         });
       }, 10);
     }
-  });
+  }
+  spMenuToggle.addEventListener('click', (e) => spMenuToggleClick(e));
 }
 
 // 第一页提交按钮验证
 const firstPageSubmitBtn = document.querySelector('.first-page .submit-btn');
 if (firstPageSubmitBtn) {
-  firstPageSubmitBtn.addEventListener('click', function(e) {
+  firstPageSubmitBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    
+
     const landingInput = document.querySelector('.first-page .landing');
     const companyInput = document.querySelector('.first-page .company');
-    
+
     const landingValue = landingInput ? landingInput.value.trim() : '';
     const companyValue = companyInput ? companyInput.value.trim() : '';
-    
+
     if (!landingValue) {
       alert('Please fill in the Company\'s name field.');
       if (landingInput) landingInput.focus();
       return;
     }
-    
+
     if (!companyValue) {
       alert('Please fill in the link field.');
       if (companyInput) companyInput.focus();
       return;
     }
-    
+
     // If validation passes, you can submit the form or perform other actions
     console.log('Form submitted successfully');
     // Add your submit logic here
@@ -1345,27 +1355,27 @@ if (firstPageSubmitBtn) {
 // Second-page submit button validation
 const secondPageSubmitBtn = document.querySelector('.second-page .sp-submit-btn');
 if (secondPageSubmitBtn) {
-  secondPageSubmitBtn.addEventListener('click', function(e) {
+  secondPageSubmitBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    
+
     const landingInput = document.querySelector('.second-page .landing');
     const companyInput = document.querySelector('.second-page .company');
-    
+
     const landingValue = landingInput ? landingInput.value.trim() : '';
     const companyValue = companyInput ? companyInput.value.trim() : '';
-    
+
     if (!landingValue) {
       alert('Please fill in the Company\'s name field.');
       if (landingInput) landingInput.focus();
       return;
     }
-    
+
     if (!companyValue) {
       alert('Please fill in the link field.');
       if (companyInput) companyInput.focus();
       return;
     }
-    
+
     // If validation passes, you can submit the form or perform other actions
     console.log('Form submitted successfully');
     // Add your submit logic here
