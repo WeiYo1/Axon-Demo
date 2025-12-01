@@ -149,8 +149,211 @@ tabs.forEach(button => {
         }
 
         // Asegurar que el tab de Video esté activo en second-page
-        const spVideoTab = document.querySelector('.second-page .sp-tab');
+        const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
         if (spVideoTab) spVideoTab.classList.add('active');
+        
+        // Mostrar contenido de Video
+        const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+        const ugcContent = document.querySelector('.second-page .ugc-content');
+        const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+        if (videoContent) videoContent.style.display = 'flex';
+        if (ugcContent) ugcContent.style.display = 'none';
+        if (aiUgcContent) aiUgcContent.style.display = 'none';
+        
+        // 显示所有 Video 相关内容，隐藏 UGC 和 AI UGC
+        const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+        allSections.forEach(section => {
+          const sectionId = section.id;
+          if (sectionId === 'ugc' || sectionId === 'ai-ugc') {
+            // 隐藏 UGC 和 AI UGC
+            section.style.display = 'none';
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'none';
+            }
+          } else {
+            // 显示所有 Video 区域
+            section.style.display = 'block';
+            // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'flex';
+            }
+            // 如果标题在 sp-container-cards 内部（如 15s）
+            const parentContainer = section.closest('.sp-container-cards');
+            if (parentContainer) {
+              parentContainer.style.display = 'flex';
+            }
+          }
+        });
+      }
+    } else if (buttonText === 'UGC') {
+      const firstPage = document.querySelector('.first-page');
+      const secondPage = document.querySelector('.second-page');
+      const backButton = document.querySelector('.back-button');
+
+      if (firstPage && secondPage) {
+        // Resetear todos los botones de ambas páginas
+        deactivateAllFirstPageButtons();
+        deactivateAllSecondPageButtons();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Fade out first-page
+        firstPage.classList.add('hidden');
+
+        // Mostrar second-page inmediatamente
+        firstPage.style.display = 'none';
+        secondPage.style.display = 'block';
+        void secondPage.offsetWidth;
+        secondPage.classList.add('visible');
+        if (backButton) {
+          backButton.style.display = 'flex';
+        }
+
+        // Asegurar que el tab de UGC esté activo en second-page
+        const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+        if (spUgcTab) spUgcTab.classList.add('active');
+        
+        // Mostrar contenido de UGC
+        const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+        const ugcContent = document.querySelector('.second-page .ugc-content');
+        const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+        if (videoContent) videoContent.style.display = 'none';
+        if (ugcContent) ugcContent.style.display = 'flex';
+        if (aiUgcContent) aiUgcContent.style.display = 'none';
+        
+        // 隐藏所有其他内容区域，只显示 UGC
+        const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+        allSections.forEach(section => {
+          const sectionId = section.id;
+          if (sectionId === 'ugc') {
+            // 显示 UGC 标题和内容
+            section.style.display = 'block';
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'flex';
+            }
+          } else {
+            // 隐藏其他所有区域
+            section.style.display = 'none';
+            // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'none';
+            }
+            // 如果标题在 sp-container-cards 内部（如 15s）
+            const parentContainer = section.closest('.sp-container-cards');
+            if (parentContainer) {
+              parentContainer.style.display = 'none';
+            }
+          }
+        });
+        
+        // 滚动到 UGC 内容区域
+        setTimeout(() => {
+          const targetElement = document.getElementById('ugc');
+          const cardsContainer = document.querySelector('.sp-cards-container');
+          if (targetElement && cardsContainer) {
+            const elementPosition = targetElement.offsetTop;
+            const offsetPosition = elementPosition - 300;
+            cardsContainer.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 600); // 等待页面切换动画完成
+      }
+    } else if (buttonText === 'AI UGC') {
+      const firstPage = document.querySelector('.first-page');
+      const secondPage = document.querySelector('.second-page');
+      const backButton = document.querySelector('.back-button');
+
+      if (firstPage && secondPage) {
+        // Resetear todos los botones de ambas páginas
+        deactivateAllFirstPageButtons();
+        deactivateAllSecondPageButtons();
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Fade out first-page
+        firstPage.classList.add('hidden');
+
+        // Mostrar second-page inmediatamente
+        firstPage.style.display = 'none';
+        secondPage.style.display = 'block';
+        void secondPage.offsetWidth;
+        secondPage.classList.add('visible');
+        if (backButton) {
+          backButton.style.display = 'flex';
+        }
+
+        // Asegurar que el tab de AI UGC esté activo en second-page
+        const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+        if (spAiUgcTab) spAiUgcTab.classList.add('active');
+        
+        // Mostrar contenido de AI UGC
+        const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+        const ugcContent = document.querySelector('.second-page .ugc-content');
+        const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+        if (videoContent) videoContent.style.display = 'none';
+        if (ugcContent) ugcContent.style.display = 'none';
+        if (aiUgcContent) aiUgcContent.style.display = 'flex';
+        
+        // 隐藏所有其他内容区域，只显示 AI UGC
+        const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+        allSections.forEach(section => {
+          const sectionId = section.id;
+          if (sectionId === 'ai-ugc') {
+            // 显示 AI UGC 标题和内容
+            section.style.display = 'block';
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'flex';
+            }
+          } else {
+            // 隐藏其他所有区域
+            section.style.display = 'none';
+            // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+            const nextBr = section.nextElementSibling;
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+            const containerCards = nextBr ? nextBr.nextElementSibling : null;
+            if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+              containerCards.style.display = 'none';
+            }
+            // 如果标题在 sp-container-cards 内部（如 15s）
+            const parentContainer = section.closest('.sp-container-cards');
+            if (parentContainer) {
+              parentContainer.style.display = 'none';
+            }
+          }
+        });
+        
+        // 滚动到 AI UGC 内容区域
+        setTimeout(() => {
+          const targetElement = document.getElementById('ai-ugc');
+          const cardsContainer = document.querySelector('.sp-cards-container');
+          if (targetElement && cardsContainer) {
+            const elementPosition = targetElement.offsetTop;
+            const offsetPosition = elementPosition - 300;
+            cardsContainer.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 600); // 等待页面切换动画完成
       }
     } else if (buttonText === 'Interactives') {
       // En first-page, Interactives debe permanecer activo siempre
@@ -351,12 +554,187 @@ spTabs.forEach(button => {
   button.addEventListener('click', function () {
     const buttonText = this.textContent.trim();
 
+    // 获取所有内容容器
+    const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+    const ugcContent = document.querySelector('.second-page .ugc-content');
+    const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+
+    // 取消所有卡片的选中状态
+    const allCards = document.querySelectorAll('.second-page .sp-card');
+    allCards.forEach(card => card.classList.remove('selected'));
+
     if (buttonText === 'Video') {
       // En second-page, Video debe permanecer activo siempre
-      const spVideoTab = document.querySelector('.second-page .sp-tab');
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
       const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
       if (spInterTab) spInterTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.remove('active');
       if (spVideoTab) spVideoTab.classList.add('active');
+      
+      // 显示 Video 内容，隐藏其他
+      if (videoContent) videoContent.style.display = 'flex';
+      if (ugcContent) ugcContent.style.display = 'none';
+      if (aiUgcContent) aiUgcContent.style.display = 'none';
+      
+      // 显示所有 Video 相关内容，隐藏 UGC 和 AI UGC
+      const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+      allSections.forEach(section => {
+        const sectionId = section.id;
+        if (sectionId === 'ugc' || sectionId === 'ai-ugc') {
+          // 隐藏 UGC 和 AI UGC
+          section.style.display = 'none';
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'none';
+          }
+        } else {
+          // 显示所有 Video 区域
+          section.style.display = 'block';
+          // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'flex';
+          }
+          // 如果标题在 sp-container-cards 内部（如 15s）
+          const parentContainer = section.closest('.sp-container-cards');
+          if (parentContainer) {
+            parentContainer.style.display = 'flex';
+          }
+        }
+      });
+      return; // sin navegación
+    }
+
+    if (buttonText === 'UGC') {
+      // En second-page, UGC debe permanecer activo siempre
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+      if (spVideoTab) spVideoTab.classList.remove('active');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.add('active');
+      
+      // 显示 UGC 内容，隐藏其他
+      if (videoContent) videoContent.style.display = 'none';
+      if (ugcContent) ugcContent.style.display = 'flex';
+      if (aiUgcContent) aiUgcContent.style.display = 'none';
+      
+      // 隐藏所有其他内容区域，只显示 UGC
+      const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+      allSections.forEach(section => {
+        const sectionId = section.id;
+        if (sectionId === 'ugc') {
+          // 显示 UGC 标题和内容
+          section.style.display = 'block';
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'flex';
+          }
+        } else {
+          // 隐藏其他所有区域
+          section.style.display = 'none';
+          // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'none';
+          }
+          // 如果标题在 sp-container-cards 内部（如 15s）
+          const parentContainer = section.closest('.sp-container-cards');
+          if (parentContainer) {
+            parentContainer.style.display = 'none';
+          }
+        }
+      });
+      
+      // 滚动到 UGC 内容区域
+      setTimeout(() => {
+        const targetElement = document.getElementById('ugc');
+        const cardsContainer = document.querySelector('.sp-cards-container');
+        if (targetElement && cardsContainer) {
+          const elementPosition = targetElement.offsetTop;
+          const offsetPosition = elementPosition - 300;
+          cardsContainer.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+      return; // sin navegación
+    }
+
+    if (buttonText === 'AI UGC') {
+      // En second-page, AI UGC debe permanecer activo siempre
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+      if (spVideoTab) spVideoTab.classList.remove('active');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.add('active');
+      
+      // 显示 AI UGC 内容，隐藏其他
+      if (videoContent) videoContent.style.display = 'none';
+      if (ugcContent) ugcContent.style.display = 'none';
+      if (aiUgcContent) aiUgcContent.style.display = 'flex';
+      
+      // 隐藏所有其他内容区域，只显示 AI UGC
+      const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+      allSections.forEach(section => {
+        const sectionId = section.id;
+        if (sectionId === 'ai-ugc') {
+          // 显示 AI UGC 标题和内容
+          section.style.display = 'block';
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'flex';
+          }
+        } else {
+          // 隐藏其他所有区域
+          section.style.display = 'none';
+          // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
+          const nextBr = section.nextElementSibling;
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
+          const containerCards = nextBr ? nextBr.nextElementSibling : null;
+          if (containerCards && containerCards.classList.contains('sp-container-cards')) {
+            containerCards.style.display = 'none';
+          }
+          // 如果标题在 sp-container-cards 内部（如 15s）
+          const parentContainer = section.closest('.sp-container-cards');
+          if (parentContainer) {
+            parentContainer.style.display = 'none';
+          }
+        }
+      });
+      
+      // 滚动到 AI UGC 内容区域
+      setTimeout(() => {
+        const targetElement = document.getElementById('ai-ugc');
+        const cardsContainer = document.querySelector('.sp-cards-container');
+        if (targetElement && cardsContainer) {
+          const elementPosition = targetElement.offsetTop;
+          const offsetPosition = elementPosition - 300;
+          cardsContainer.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
       return; // sin navegación
     }
 
@@ -386,6 +764,23 @@ spTabs.forEach(button => {
           const fpInteractivesTab = document.querySelector('.first-page .tab-2');
           if (fpInteractivesTab) fpInteractivesTab.classList.add('active');
         }, 500); // Duración igual a la transición CSS
+        return; // sin navegación
+      } else {
+        // Si no está en second-page visible, solo activar el botón
+        const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+        const spInterTab = document.querySelector('.second-page .sp-tab-2');
+        const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+        const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+        if (spVideoTab) spVideoTab.classList.remove('active');
+        if (spUgcTab) spUgcTab.classList.remove('active');
+        if (spAiUgcTab) spAiUgcTab.classList.remove('active');
+        if (spInterTab) spInterTab.classList.add('active');
+        
+        // 隐藏所有内容模块
+        if (videoContent) videoContent.style.display = 'none';
+        if (ugcContent) ugcContent.style.display = 'none';
+        if (aiUgcContent) aiUgcContent.style.display = 'none';
+        return; // sin navegación
       }
     }
   });
@@ -461,17 +856,61 @@ spInteractivesButtons.forEach(button => {
     // Card target id mapping (ids en DOM terminan con '-target')
     let cardTargetId = '';
 
+    // 获取内容模块
+    const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+    const ugcContent = document.querySelector('.second-page .ugc-content');
+    const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+
     if (buttonText === '59s video templates') {
       targetId = '59s';
     } else if (buttonText === 'Video Editing') {
       targetId = 'video-editing';
       cardTargetId = 'video-editing-target';
+      // 显示 Video 内容
+      if (videoContent) videoContent.style.display = 'flex';
+      if (ugcContent) ugcContent.style.display = 'none';
+      if (aiUgcContent) aiUgcContent.style.display = 'none';
+      // 激活 Video tab
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.remove('active');
+      if (spVideoTab) spVideoTab.classList.add('active');
     } else if (buttonText === 'UGC') {
       targetId = 'ugc';
       cardTargetId = 'ugc-target';
+      // 显示 UGC 内容
+      if (videoContent) videoContent.style.display = 'none';
+      if (ugcContent) ugcContent.style.display = 'flex';
+      if (aiUgcContent) aiUgcContent.style.display = 'none';
+      // 激活 UGC tab
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+      if (spVideoTab) spVideoTab.classList.remove('active');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.add('active');
     } else if (buttonText === 'AI UGC') {
       targetId = 'ai-ugc';
       cardTargetId = 'ai-ugc-target';
+      // 显示 AI UGC 内容
+      if (videoContent) videoContent.style.display = 'none';
+      if (ugcContent) ugcContent.style.display = 'none';
+      if (aiUgcContent) aiUgcContent.style.display = 'flex';
+      // 激活 AI UGC tab
+      const spVideoTab = document.querySelector('.second-page .sp-tab:not(.an-ucg):not(.an-aiucg)');
+      const spInterTab = document.querySelector('.second-page .sp-tab-2');
+      const spUgcTab = document.querySelector('.second-page .sp-tab.an-ucg');
+      const spAiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg');
+      if (spVideoTab) spVideoTab.classList.remove('active');
+      if (spInterTab) spInterTab.classList.remove('active');
+      if (spUgcTab) spUgcTab.classList.remove('active');
+      if (spAiUgcTab) spAiUgcTab.classList.add('active');
     }
 
     // Do not toggle selection of cards from interactives menu buttons; only scroll
@@ -495,6 +934,16 @@ spInteractivesButtons.forEach(button => {
 
 // Lazy loading para videos usando Intersection Observer
 document.addEventListener('DOMContentLoaded', function () {
+  // 初始化 second-page 的内容模块显示状态
+  const videoContent = document.querySelector('.second-page .sp-interactives-container:not(.ugc-content):not(.ai-ugc-content)');
+  const ugcContent = document.querySelector('.second-page .ugc-content');
+  const aiUgcContent = document.querySelector('.second-page .ai-ugc-content');
+  
+  // 默认显示 Video 内容，隐藏其他
+  if (videoContent) videoContent.style.display = 'flex';
+  if (ugcContent) ugcContent.style.display = 'none';
+  if (aiUgcContent) aiUgcContent.style.display = 'none';
+
   const videos = document.querySelectorAll('video[data-src]');
 
   const videoObserver = new IntersectionObserver((entries, observer) => {
@@ -860,5 +1309,65 @@ if (spMenuToggle) {
         });
       }, 10);
     }
+  });
+}
+
+// 第一页提交按钮验证
+const firstPageSubmitBtn = document.querySelector('.first-page .submit-btn');
+if (firstPageSubmitBtn) {
+  firstPageSubmitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const landingInput = document.querySelector('.first-page .landing');
+    const companyInput = document.querySelector('.first-page .company');
+    
+    const landingValue = landingInput ? landingInput.value.trim() : '';
+    const companyValue = companyInput ? companyInput.value.trim() : '';
+    
+    if (!landingValue) {
+      alert('Please fill in the Company\'s name field.');
+      if (landingInput) landingInput.focus();
+      return;
+    }
+    
+    if (!companyValue) {
+      alert('Please fill in the link field.');
+      if (companyInput) companyInput.focus();
+      return;
+    }
+    
+    // If validation passes, you can submit the form or perform other actions
+    console.log('Form submitted successfully');
+    // Add your submit logic here
+  });
+}
+
+// Second-page submit button validation
+const secondPageSubmitBtn = document.querySelector('.second-page .sp-submit-btn');
+if (secondPageSubmitBtn) {
+  secondPageSubmitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const landingInput = document.querySelector('.second-page .landing');
+    const companyInput = document.querySelector('.second-page .company');
+    
+    const landingValue = landingInput ? landingInput.value.trim() : '';
+    const companyValue = companyInput ? companyInput.value.trim() : '';
+    
+    if (!landingValue) {
+      alert('Please fill in the Company\'s name field.');
+      if (landingInput) landingInput.focus();
+      return;
+    }
+    
+    if (!companyValue) {
+      alert('Please fill in the link field.');
+      if (companyInput) companyInput.focus();
+      return;
+    }
+    
+    // If validation passes, you can submit the form or perform other actions
+    console.log('Form submitted successfully');
+    // Add your submit logic here
   });
 }

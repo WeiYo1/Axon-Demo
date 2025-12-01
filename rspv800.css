@@ -62,9 +62,10 @@
   .cards-container {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 50.7%;
+    /* right: 0; */
     bottom: 0;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,6 +73,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
+    width: 100%;
   }
 
   .first-page .title {
@@ -126,7 +128,7 @@
     width: 400px;
     height: auto;
     margin-top: 3400px;
-    margin-left: -20px;
+    /* margin-left: -20px; */
     padding-bottom: 200px;
   }
 
@@ -557,7 +559,7 @@
     height: auto;
     padding-bottom: 200px;
     margin-top: 2850px;
-    margin-left: -30px;
+    margin-left: -5px;
   }
 
   .first-page .card {
@@ -704,13 +706,15 @@
   .second-page .sp-cards-container {
     position: absolute;
     top: 0;
-    left: 13px;
-    right: 0;
+    transform: translateX(-50%);
+    left: 50%;
+    /* right: 0; */
     bottom: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 113%;
     height: 100%;
   }
 
@@ -766,7 +770,7 @@
     width: 400px;
     height: auto;
     margin-top: 80px;
-    margin-left: -22px;
+    /* margin-left: -22px; */
   }
 
   .second-page .sp-card {
@@ -1217,7 +1221,7 @@
     columns: 2;
     width: 350px;
     height: auto;
-    margin-left: -35px;
+    /* margin-left: -35px; */
     margin-top: 10px;
   }
 

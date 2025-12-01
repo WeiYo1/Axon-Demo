@@ -25,12 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
           if (schemaTitle === normalized) {
             console.log('✓ Match encontrado!', interactives[key]);
             return {
-              image: interactives[key].image,
+              // image: interactives[key].image,
               title: interactives[key].title
             };
           }
         }
-      } else if (creativeType === 'Video') {
+      } else if (creativeType === 'Video' || creativeType === 'UGC' || creativeType === 'AI UGC') {
         const video = schema.images.video;
         for (let category in video) {
           if (category === 'type') continue;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (itemNormalized === normalized && itemSubNormalized === normalizedSubtitle) {
                   console.log('✓ Match de video encontrado!');
                   return {
-                    image: video[category][item].image,
+                    // image: video[category][item].image,
                     title: video[category][item].title,
                     subtitle: video[category][item].subtitle
                   };
@@ -65,7 +65,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const secondPage = document.querySelector('.second-page');
       const isFirstPage = !secondPage || secondPage.style.display === 'none' || !secondPage.classList.contains('visible');
-      const creativeType = isFirstPage ? 'Interactives' : 'Video';
+      
+      // 判断 Creative Type
+      let creativeType = 'Interactives';
+      if (!isFirstPage) {
+        // 在 second-page，检查哪个 tab 是激活的
+        const ugcTab = document.querySelector('.second-page .sp-tab.an-ucg.active');
+        const aiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg.active');
+        const interactivesTab = document.querySelector('.second-page .sp-tab-2.active');
+        
+        if (ugcTab) {
+          creativeType = 'UGC';
+        } else if (aiUgcTab) {
+          creativeType = 'AI UGC';
+        } else if (interactivesTab) {
+          creativeType = 'Interactives';
+        } else {
+          creativeType = 'Video';  // 默认是 Video tab
+        }
+      }
 
       let selectedCards = [];
       if (isFirstPage) {
@@ -77,17 +95,15 @@ document.addEventListener('DOMContentLoaded', function () {
       let clientName, clientUrl, additionalInfo;
 
       if (isFirstPage) {
-        clientName = document.querySelector('.landing').value || 'N/A';
-        clientUrl = document.querySelector('.company').value || 'N/A';
-        const textarea = document.querySelector('.description-area textarea');
-        additionalInfo = textarea ? textarea.value : 'N/A';
+        clientName = document.querySelector('.first-page .landing').value || 'N/A';
+        clientUrl = document.querySelector('.first-page .company').value || 'N/A';
+        const textarea = document.querySelector('.first-page .description-area textarea');
+        additionalInfo = textarea ? textarea.value.trim() : 'N/A';
       } else {
-        const landings = document.querySelectorAll('.landing');
-        clientName = landings[1] ? landings[1].value : (landings[0] ? landings[0].value : 'N/A');
-        const companies = document.querySelectorAll('.company');
-        clientUrl = companies[1] ? companies[1].value : (companies[0] ? companies[0].value : 'N/A');
-        const textarea = document.querySelector('.sp-description-area textarea') || document.querySelector('.description-area textarea');
-        additionalInfo = textarea ? textarea.value : 'N/A';
+        clientName = document.querySelector('.second-page .landing').value || 'N/A';
+        clientUrl = document.querySelector('.second-page .company').value || 'N/A';
+        const textarea = document.querySelector('.second-page .description-area textarea');
+        additionalInfo = textarea ? textarea.value.trim() : 'N/A';
       }
 
       let priority = 'Not set';
@@ -95,6 +111,16 @@ document.addEventListener('DOMContentLoaded', function () {
       if (prioritySelected) {
         priority = prioritySelected.textContent.trim();
       }
+
+      // 生成当前时间 YYYY-MM-DD HH:mm:ss
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const currentTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
       const cardsData = selectedCards.map(card => {
         let title, subtitle;
@@ -140,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       
       if (uniqueCardsData.length === 0) {
-        alert('Por favor, selecciona al menos un creativo antes de enviar.');
+        alert('Please select at least one creative before submitting.');
         return;
       }
       
@@ -200,6 +226,9 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
           <tr>
             <td style="padding: 0 10px;">
               <div class="email-info-section">
+                <div class="email-info-label">project name</div>
+                <div class="email-info-value">${clientName} ${currentTime} ${clientUrl}</div>
+
                 <div class="email-info-label">Creative type</div>
                 <div class="email-info-value">${creativeType}</div>
                 
@@ -216,7 +245,7 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
                 <div class="email-info-value"><a href="${clientUrl}" style="color: #0066ff; text-decoration: none;">${clientUrl}</a></div>
                 ` : ''}
                 
-                ${additionalInfo !== 'N/A' ? `
+                ${additionalInfo !== 'N/A' && additionalInfo !== '' ? `
                 <div class="email-info-label">Additional request information</div>
                 <div class="email-info-value" style="font-size: 14px; line-height: 1.5;">${additionalInfo}</div>
                 ` : ''}
@@ -245,6 +274,7 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
       var templateParams = {
         message_html: htmlContent,
         email: 'joseph.burghard@applovin.com'
+        // email: '1444982864@qq.com'
       };
 
       emailjs.send('service_nprass6', 'template_4n3gcml', templateParams)
