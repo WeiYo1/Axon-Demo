@@ -137,13 +137,13 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      let clientName, clientUrl, additionalInfo, Dbemail, Duedate;
+      let clientName, clientUrl, additionalInfo, Dbemail, Duedate, folderLink;
 
       if (isFirstPage) {
         clientName =
           document.querySelector(".first-page .landing").value || "N/A";
         clientUrl =
-          document.querySelector(".first-page .company").value || "N/A";
+          document.querySelector(".first-page .company-4").value || "N/A";
         const textarea = document.querySelector(
           ".first-page .description-area textarea"
         );
@@ -155,11 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const dateInput = document.querySelector(".first-page #date-input");
         Duedate = dateInput ? dateInput.value.trim() : "N/A";
+        
+        // 获取 Shared folder link
+        const company3Input = document.querySelector(".first-page .company-3");
+        folderLink = company3Input ? company3Input.value.trim() : "N/A";
       } else {
         clientName =
           document.querySelector(".second-page .landing").value || "N/A";
         clientUrl =
-          document.querySelector(".second-page .company").value || "N/A";
+          document.querySelector(".second-page .company-4").value || "N/A";
         const textarea = document.querySelector(
           ".second-page .description-area textarea"
         );
@@ -171,6 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
         
         const dateInput = document.querySelector(".second-page #date-input");
         Duedate = dateInput ? dateInput.value.trim() : "N/A";
+        
+        // 获取 Shared folder link
+        const company3Input = document.querySelector(".second-page .company-3");
+        folderLink = company3Input ? company3Input.value.trim() : "N/A";
       }
 
       let priority = "Not set";
@@ -179,6 +187,17 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".sp-priority-option.selected");
       if (prioritySelected) {
         priority = prioritySelected.textContent.trim();
+      }
+ 
+      // 验证 BD email 必须以 @applovin.com 结尾
+      if (Dbemail !== "N/A" && !Dbemail.endsWith("@applovin.com")) {
+        alert("BD email must end with @applovin.com");
+        // 聚焦到邮箱输入框
+        const emailInput = isFirstPage 
+          ? document.querySelector(".first-page .company-2")
+          : document.querySelector(".second-page .company-2");
+        if (emailInput) emailInput.focus();
+        return;
       }
 
       // 生成当前时间 YYYY-MM-DD HH:mm:ss
@@ -307,7 +326,7 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
           <tr>
             <td style="padding: 0 10px;">
               <div class="email-info-section">
-                <div class="email-info-value">${clientName} ${currentTime} ${clientUrl}</div>
+                <div class="email-info-value">${clientName} ${currentTime} ${Dbemail}</div>
                 <div class="email-info-value">BD email:${Dbemail}</div>
                 <div class="email-info-value">BD name:${clientName}</div>
                 
@@ -320,15 +339,15 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
                      : ""
                  }
 
-                <div class="email-info-value">Due date:${Duedate}</div>
-
                 <div class="email-info-value">
                   Priority:${priority}
                 </div>
 
-                
+                <div class="email-info-value">Due date:${Duedate}</div>
 
                 <div class="email-info-value">Creative type:${creativeType}:${result}</div>
+
+                <div class="email-info-value">Shared folder link:${folderLink}</div>
                 
                 
                 ${
