@@ -175,10 +175,10 @@ tabs.forEach(button => {
             }
           } else {
             // 显示所有 Video 区域
-            section.style.display = 'block';
+            section.style.display = 'flex';
             // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
             const nextBr = section.nextElementSibling;
-            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
             const containerCards = nextBr ? nextBr.nextElementSibling : null;
             if (containerCards && containerCards.classList.contains('sp-container-cards')) {
               containerCards.style.display = 'flex';
@@ -234,9 +234,9 @@ tabs.forEach(button => {
           const sectionId = section.id;
           if (sectionId === 'ugc') {
             // 显示 UGC 标题和内容
-            section.style.display = 'block';
+            section.style.display = 'flex';
             const nextBr = section.nextElementSibling;
-            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
             const containerCards = nextBr ? nextBr.nextElementSibling : null;
             if (containerCards && containerCards.classList.contains('sp-container-cards')) {
               containerCards.style.display = 'flex';
@@ -316,9 +316,9 @@ tabs.forEach(button => {
           const sectionId = section.id;
           if (sectionId === 'ai-ugc') {
             // 显示 AI UGC 标题和内容
-            section.style.display = 'block';
+            section.style.display = 'flex';
             const nextBr = section.nextElementSibling;
-            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+            if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
             const containerCards = nextBr ? nextBr.nextElementSibling : null;
             if (containerCards && containerCards.classList.contains('sp-container-cards')) {
               containerCards.style.display = 'flex';
@@ -429,6 +429,7 @@ const priorityText = document.getElementById('priority-text');
 const menu = document.querySelector('.menu');
 const landingInput = document.querySelector('.first-page .landing');
 const companyInput = document.querySelector('.first-page .company');
+const companyInput2 = document.querySelector('.first-page .company-2');
 let isDropdownOpen = false;
 
 prioritySection.addEventListener('click', function () {
@@ -441,6 +442,7 @@ prioritySection.addEventListener('click', function () {
     // Hide landing and company inputs when dropdown opens
     if (landingInput) landingInput.style.display = 'none';
     if (companyInput) companyInput.style.display = 'none';
+    if (companyInput2) companyInput2.style.display = 'none';
   } else {
     prioritySection.classList.remove('open');
     priorityDropdown.classList.remove('open');
@@ -448,6 +450,7 @@ prioritySection.addEventListener('click', function () {
     // Show landing and company inputs when dropdown closes
     if (landingInput) landingInput.style.display = 'flex';
     if (companyInput) companyInput.style.display = 'flex';
+    if (companyInput2) companyInput2.style.display = 'flex';
   }
 });
 
@@ -474,6 +477,7 @@ priorityOptions.forEach(option => {
     // Show landing and company inputs when dropdown closes
     if (landingInput) landingInput.style.display = 'flex';
     if (companyInput) companyInput.style.display = 'flex';
+    if (companyInput2) companyInput2.style.display = 'flex';
   });
 });
 
@@ -488,6 +492,7 @@ document.addEventListener('click', function (e) {
       // Show landing and company inputs when dropdown closes
       if (landingInput) landingInput.style.display = 'flex';
       if (companyInput) companyInput.style.display = 'flex';
+      if (companyInput2) companyInput2.style.display = 'flex';
     }
   }
 });
@@ -589,6 +594,7 @@ spTabs.forEach(button => {
 
       // 显示所有 Video 相关内容，隐藏 UGC 和 AI UGC
       const allSections = document.querySelectorAll('.sp-current-templete, .sp-current-templete-2');
+      console.log('sp-current-templete')
       allSections.forEach(section => {
         const sectionId = section.id;
         if (sectionId === 'ugc' || sectionId === 'ai-ugc') {
@@ -602,10 +608,10 @@ spTabs.forEach(button => {
           }
         } else {
           // 显示所有 Video 区域
-          section.style.display = 'block';
+          section.style.display = 'flex';
           // 如果标题在 sp-container-cards 外部（如 59s、video-editing）
           const nextBr = section.nextElementSibling;
-          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
           const containerCards = nextBr ? nextBr.nextElementSibling : null;
           if (containerCards && containerCards.classList.contains('sp-container-cards')) {
             containerCards.style.display = 'flex';
@@ -642,9 +648,9 @@ spTabs.forEach(button => {
         const sectionId = section.id;
         if (sectionId === 'ugc') {
           // 显示 UGC 标题和内容
-          section.style.display = 'block';
+          section.style.display = 'flex';
           const nextBr = section.nextElementSibling;
-          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
           const containerCards = nextBr ? nextBr.nextElementSibling : null;
           if (containerCards && containerCards.classList.contains('sp-container-cards')) {
             containerCards.style.display = 'flex';
@@ -705,9 +711,9 @@ spTabs.forEach(button => {
         const sectionId = section.id;
         if (sectionId === 'ai-ugc') {
           // 显示 AI UGC 标题和内容
-          section.style.display = 'block';
+          section.style.display = 'flex';
           const nextBr = section.nextElementSibling;
-          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'block';
+          if (nextBr && nextBr.tagName === 'BR') nextBr.style.display = 'none';
           const containerCards = nextBr ? nextBr.nextElementSibling : null;
           if (containerCards && containerCards.classList.contains('sp-container-cards')) {
             containerCards.style.display = 'flex';
@@ -985,6 +991,7 @@ const spPriorityText = document.getElementById('sp-priority-text');
 const spMenu = document.querySelector('.sp-menu');
 const spLandingInput = document.querySelector('.second-page .landing');
 const spCompanyInput = document.querySelector('.second-page .company');
+const spCompanyInput2 = document.querySelector('.second-page .company-2');
 let isSpDropdownOpen = false;
 
 if (spPrioritySection) {
@@ -998,6 +1005,7 @@ if (spPrioritySection) {
       // Hide landing and company inputs when dropdown opens
       if (spLandingInput) spLandingInput.style.display = 'none';
       if (spCompanyInput) spCompanyInput.style.display = 'none';
+      if (spCompanyInput2) spCompanyInput2.style.display = 'none';
     } else {
       spPrioritySection.classList.remove('open');
       spPriorityDropdown.classList.remove('open');
@@ -1005,6 +1013,7 @@ if (spPrioritySection) {
       // Show landing and company inputs when dropdown closes
       if (spLandingInput) spLandingInput.style.display = 'flex';
       if (spCompanyInput) spCompanyInput.style.display = 'flex';
+      if (spCompanyInput2) spCompanyInput2.style.display = 'flex';
     }
   });
 }
@@ -1034,6 +1043,7 @@ spPriorityOptions.forEach(option => {
     // Show landing and company inputs when dropdown closes
     if (spLandingInput) spLandingInput.style.display = 'flex';
     if (spCompanyInput) spCompanyInput.style.display = 'flex';
+    if (spCompanyInput2) spCompanyInput2.style.display = 'flex';
   });
 });
 
@@ -1049,6 +1059,7 @@ document.addEventListener('click', function (e) {
         // Show landing and company inputs when dropdown closes
         if (spLandingInput) spLandingInput.style.display = 'flex';
         if (spCompanyInput) spCompanyInput.style.display = 'flex';
+        if (spCompanyInput2) spCompanyInput2.style.display = 'flex';
       }
     }
   }

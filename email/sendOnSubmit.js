@@ -1,54 +1,85 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js';
+document.addEventListener("DOMContentLoaded", function () {
+  var script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js";
   script.onload = function () {
-    emailjs.init('Z_OXQEj53STPZKtMg'); 
+    emailjs.init("Z_OXQEj53STPZKtMg");
 
     function normalizeTitle(title) {
-      return title.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return title.toLowerCase().replace(/[^a-z0-9]/g, "");
     }
 
     function getImageFromSchema(title, subtitle, creativeType) {
       const normalized = normalizeTitle(title);
-      const normalizedSubtitle = subtitle ? normalizeTitle(subtitle) : '';
-      
-      console.log('Buscando:', { title, subtitle, creativeType, normalized, normalizedSubtitle });
+      const normalizedSubtitle = subtitle ? normalizeTitle(subtitle) : "";
 
-      if (creativeType === 'Interactives') {
+      console.log("Buscando:", {
+        title,
+        subtitle,
+        creativeType,
+        normalized,
+        normalizedSubtitle,
+      });
+
+      if (creativeType === "Interactives") {
         const interactives = schema.images.interactives;
         for (let key in interactives) {
-          if (key === 'type' || !interactives[key].title) continue;
-          
+          if (key === "type" || !interactives[key].title) continue;
+
           const schemaTitle = normalizeTitle(interactives[key].title);
-          console.log('Comparando con:', key, interactives[key].title, 'normalizado:', schemaTitle);
-          
+          console.log(
+            "Comparando con:",
+            key,
+            interactives[key].title,
+            "normalizado:",
+            schemaTitle
+          );
+
           if (schemaTitle === normalized) {
-            console.log('✓ Match encontrado!', interactives[key]);
+            console.log("✓ Match encontrado!", interactives[key]);
             return {
               // image: interactives[key].image,
-              title: interactives[key].title
+              title: interactives[key].title,
             };
           }
         }
-      } else if (creativeType === 'Video' || creativeType === 'UGC' || creativeType === 'AI UGC') {
+      } else if (
+        creativeType === "Video" ||
+        creativeType === "UGC" ||
+        creativeType === "AI UGC"
+      ) {
         const video = schema.images.video;
         for (let category in video) {
-          if (category === 'type') continue;
-          
-          if (typeof video[category] === 'object' && video[category] !== null) {
+          if (category === "type") continue;
+
+          if (typeof video[category] === "object" && video[category] !== null) {
             for (let item in video[category]) {
-              if (video[category][item].title && video[category][item].subtitle) {
-                const itemNormalized = normalizeTitle(video[category][item].title);
-                const itemSubNormalized = normalizeTitle(video[category][item].subtitle);
-                
-                console.log('Comparando video:', video[category][item].title, '+', video[category][item].subtitle);
-                
-                if (itemNormalized === normalized && itemSubNormalized === normalizedSubtitle) {
-                  console.log('✓ Match de video encontrado!');
+              if (
+                video[category][item].title &&
+                video[category][item].subtitle
+              ) {
+                const itemNormalized = normalizeTitle(
+                  video[category][item].title
+                );
+                const itemSubNormalized = normalizeTitle(
+                  video[category][item].subtitle
+                );
+
+                console.log(
+                  "Comparando video:",
+                  video[category][item].title,
+                  "+",
+                  video[category][item].subtitle
+                );
+
+                if (
+                  itemNormalized === normalized &&
+                  itemSubNormalized === normalizedSubtitle
+                ) {
+                  console.log("✓ Match de video encontrado!");
                   return {
                     // image: video[category][item].image,
                     title: video[category][item].title,
-                    subtitle: video[category][item].subtitle
+                    subtitle: video[category][item].subtitle,
                   };
                 }
               }
@@ -56,58 +87,96 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         }
       }
-      console.log('✗ No se encontró match');
+      console.log("✗ No se encontró match");
       return null;
     }
 
     function handleSubmit(e) {
       e.preventDefault();
 
-      const secondPage = document.querySelector('.second-page');
-      const isFirstPage = !secondPage || secondPage.style.display === 'none' || !secondPage.classList.contains('visible');
-      
+      const secondPage = document.querySelector(".second-page");
+      const isFirstPage =
+        !secondPage ||
+        secondPage.style.display === "none" ||
+        !secondPage.classList.contains("visible");
+
       // 判断 Creative Type
-      let creativeType = 'Interactives';
+      let creativeType = "Interactives";
+      let creativeContent = [];
+      let str = "";
+      let currentIndex = 0;
       if (!isFirstPage) {
         // 在 second-page，检查哪个 tab 是激活的
-        const ugcTab = document.querySelector('.second-page .sp-tab.an-ucg.active');
-        const aiUgcTab = document.querySelector('.second-page .sp-tab.an-aiucg.active');
-        const interactivesTab = document.querySelector('.second-page .sp-tab-2.active');
-        
+        const ugcTab = document.querySelector(
+          ".second-page .sp-tab.an-ucg.active"
+        );
+        const aiUgcTab = document.querySelector(
+          ".second-page .sp-tab.an-aiucg.active"
+        );
+        const interactivesTab = document.querySelector(
+          ".second-page .sp-tab-2.active"
+        );
+
         if (ugcTab) {
-          creativeType = 'UGC';
+          creativeType = "UGC";
         } else if (aiUgcTab) {
-          creativeType = 'AI UGC';
+          creativeType = "AI UGC";
         } else if (interactivesTab) {
-          creativeType = 'Interactives';
+          creativeType = "Interactives";
         } else {
-          creativeType = 'Video';  // 默认是 Video tab
+          creativeType = "Video"; // 默认是 Video tab
         }
       }
 
       let selectedCards = [];
       if (isFirstPage) {
-        selectedCards = Array.from(document.querySelectorAll('.card.selected'));
+        selectedCards = Array.from(document.querySelectorAll(".card.selected"));
       } else {
-        selectedCards = Array.from(document.querySelectorAll('.sp-card.selected'));
+        selectedCards = Array.from(
+          document.querySelectorAll(".sp-card.selected")
+        );
       }
 
-      let clientName, clientUrl, additionalInfo;
+      let clientName, clientUrl, additionalInfo, Dbemail, Duedate;
 
       if (isFirstPage) {
-        clientName = document.querySelector('.first-page .landing').value || 'N/A';
-        clientUrl = document.querySelector('.first-page .company').value || 'N/A';
-        const textarea = document.querySelector('.first-page .description-area textarea');
-        additionalInfo = textarea ? textarea.value.trim() : 'N/A';
+        clientName =
+          document.querySelector(".first-page .landing").value || "N/A";
+        clientUrl =
+          document.querySelector(".first-page .company").value || "N/A";
+        const textarea = document.querySelector(
+          ".first-page .description-area textarea"
+        );
+        additionalInfo = textarea ? textarea.value.trim() : "N/A";
+        
+        // 获取 BD email 和 Due date
+        const company2Input = document.querySelector(".first-page .company-2");
+        Dbemail = company2Input ? company2Input.value.trim() : "N/A";
+        
+        const dateInput = document.querySelector(".first-page #date-input");
+        Duedate = dateInput ? dateInput.value.trim() : "N/A";
       } else {
-        clientName = document.querySelector('.second-page .landing').value || 'N/A';
-        clientUrl = document.querySelector('.second-page .company').value || 'N/A';
-        const textarea = document.querySelector('.second-page .description-area textarea');
-        additionalInfo = textarea ? textarea.value.trim() : 'N/A';
+        clientName =
+          document.querySelector(".second-page .landing").value || "N/A";
+        clientUrl =
+          document.querySelector(".second-page .company").value || "N/A";
+        const textarea = document.querySelector(
+          ".second-page .description-area textarea"
+        );
+        additionalInfo = textarea ? textarea.value.trim() : "N/A";
+        
+        // 获取 BD email 和 Due date
+        const company2Input = document.querySelector(".second-page .company-2");
+        Dbemail = company2Input ? company2Input.value.trim() : "N/A";
+        
+        const dateInput = document.querySelector(".second-page #date-input");
+        Duedate = dateInput ? dateInput.value.trim() : "N/A";
       }
 
-      let priority = 'Not set';
-      const prioritySelected = document.querySelector('.priority-option.selected') || document.querySelector('.sp-priority-option.selected');
+      let priority = "Not set";
+      const prioritySelected =
+        document.querySelector(".priority-option.selected") ||
+        document.querySelector(".sp-priority-option.selected");
       if (prioritySelected) {
         priority = prioritySelected.textContent.trim();
       }
@@ -115,67 +184,79 @@ document.addEventListener('DOMContentLoaded', function () {
       // 生成当前时间 YYYY-MM-DD HH:mm:ss
       const now = new Date();
       const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
       const currentTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      let result = "";
+      let isFirst = true;
 
-      const cardsData = selectedCards.map(card => {
+      const cardsData = selectedCards.map((card) => {
         let title, subtitle;
         if (isFirstPage) {
-          const titleElement = card.querySelector('.title-card');
-          title = titleElement ? titleElement.textContent.trim() : '';
-          subtitle = 'secondary text';
+          const titleElement = card.querySelector(".title-card");
+          title = titleElement ? titleElement.textContent.trim() : "";
+          subtitle = "secondary text";
         } else {
-          const titleElement = card.querySelector('.sp-title-card');
-          const subtitleElement = card.querySelector('.sp-subtitle-card');
-          title = titleElement ? titleElement.textContent.trim() : '';
-          subtitle = subtitleElement ? subtitleElement.textContent.trim() : '';
+          const titleElement = card.querySelector(".sp-title-card");
+          const subtitleElement = card.querySelector(".sp-subtitle-card");
+          title = titleElement ? titleElement.textContent.trim() : "";
+          subtitle = subtitleElement ? subtitleElement.textContent.trim() : "";
         }
-        
-        console.log('Card seleccionada:', { title, subtitle });
+
+        console.log("Card seleccionada:", { title, subtitle });
 
         const imageData = getImageFromSchema(title, subtitle, creativeType);
-        
+        if (isFirst) {
+          result += imageData.title;
+          isFirst = false;
+        } else {
+          result += "," + imageData.title;
+        }
+
         if (!imageData) {
-          console.warn('No se encontró imagen para:', title, subtitle);
+          console.warn("No se encontró imagen para:", title, subtitle);
         }
 
         return {
-          title: title || 'Unknown',
+          title: title || "Unknown",
           subtitle: subtitle,
-          image: imageData ? imageData.image : 'https://via.placeholder.com/250'
+          image: imageData
+            ? imageData.image
+            : "https://via.placeholder.com/250",
         };
       });
 
       const uniqueCardsData = [];
       const seenCreatives = new Set();
-      
-      cardsData.forEach(card => {
-        const uniqueKey = `${normalizeTitle(card.title)}_${normalizeTitle(card.subtitle)}`;
-        
+
+      cardsData.forEach((card) => {
+        const uniqueKey = `${normalizeTitle(card.title)}_${normalizeTitle(
+          card.subtitle
+        )}`;
+
         if (!seenCreatives.has(uniqueKey)) {
           seenCreatives.add(uniqueKey);
           uniqueCardsData.push(card);
         } else {
         }
       });
-    
 
-      
       if (uniqueCardsData.length === 0) {
-        alert('Please select at least one creative before submitting.');
+        alert("Please select at least one creative before submitting.");
         return;
       }
-      
-      console.log(`✓ Total de creativos únicos a enviar: ${uniqueCardsData.length}`);
 
-      let cardsHtml = '';
+      console.log(
+        `✓ Total de creativos únicos a enviar: ${uniqueCardsData.length}`
+      );
+
+      let cardsHtml = "";
       uniqueCardsData.forEach((cardData, index) => {
         if (index % 2 === 0 && index !== 0) {
-          cardsHtml += '</tr><tr>';
+          cardsHtml += "</tr><tr>";
         }
 
         cardsHtml += `
@@ -209,7 +290,7 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
 .email-title {  color: #ffffff !important;  font-size: 28px;  margin: 0;  font-weight: 600;  padding: 30px 0 20px 0;  text-align: center;}
 .email-card {  background: #1a1d21 !important;  border-radius: 12px;  overflow: hidden;  width: 100%;}
 .email-card-img {  display: block;  width: 100%;  height: auto;}
-.email-card-title {  color: #ffffff !important;  font-size: 16px;  font-weight: 600;  margin-bottom: 4px;}
+.email-card-title {  color: #ffffff !important;  font-size: 14px;  font-weight: 600;  margin-bottom: 4px;}
 .email-card-subtext {  color: #9ca3af !important;  font-size: 13px;}
 .email-info-section {  background: #1a1d21 !important;  border-radius: 12px;  padding: 20px;  margin: 20px 0;}
 .email-info-label {  color: #9ca3af !important;  font-size: 13px;  margin-bottom: 5px;}
@@ -226,29 +307,38 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
           <tr>
             <td style="padding: 0 10px;">
               <div class="email-info-section">
-                <div class="email-info-label">project name</div>
                 <div class="email-info-value">${clientName} ${currentTime} ${clientUrl}</div>
+                <div class="email-info-value">BD email:${Dbemail}</div>
+                <div class="email-info-value">BD name:${clientName}</div>
+                
 
-                <div class="email-info-label">Creative type</div>
-                <div class="email-info-value">${creativeType}</div>
-                
-                <div class="email-info-label">Priority</div>
+                 ${
+                   clientUrl !== "N/A"
+                     ? `
+                <div class="email-info-value"><a href="${clientUrl}" style="color: #0066ff; text-decoration: none;">BD LP:${clientUrl}</a></div>
+                `
+                     : ""
+                 }
+
+                <div class="email-info-value">Due date:${Duedate}</div>
+
                 <div class="email-info-value">
-                  <span class="email-priority-badge">${priority}</span>
+                  Priority:${priority}
                 </div>
+
                 
-                <div class="email-info-label">Client name</div>
-                <div class="email-info-value">${clientName}</div>
+
+                <div class="email-info-value">Creative type:${creativeType}:${result}</div>
                 
-                ${clientUrl !== 'N/A' ? `
-                <div class="email-info-label">Client URL</div>
-                <div class="email-info-value"><a href="${clientUrl}" style="color: #0066ff; text-decoration: none;">${clientUrl}</a></div>
-                ` : ''}
                 
-                ${additionalInfo !== 'N/A' && additionalInfo !== '' ? `
+                ${
+                  additionalInfo !== "N/A" && additionalInfo !== ""
+                    ? `
                 <div class="email-info-label">Additional request information</div>
-                <div class="email-info-value" style="font-size: 14px; line-height: 1.5;">${additionalInfo}</div>
-                ` : ''}
+                <div class="email-info-value" style="font-size: 14px; line-height: 1.5;">Description:${additionalInfo}</div>
+                `
+                    : ""
+                }
               </div>
             </td>
           </tr>
@@ -274,191 +364,223 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
       var templateParams = {
         message_html: htmlContent,
         email: 'joseph.burghard@applovin.com'
-        // email: '1444982864@qq.com'
       };
 
-      emailjs.send('service_nprass6', 'template_4n3gcml', templateParams)
-        .then(function (response) {
-          alert('Correo enviado correctamente');
-          console.log('Correo enviado', response);
-        }, function (error) {
-          alert('Error al enviar correo');
-          console.error('Error al enviar correo', error);
-        });
+      emailjs.send("service_nprass6", "template_4n3gcml", templateParams).then(
+        function (response) {
+          alert("Correo enviado correctamente");
+          console.log("Correo enviado", response);
+        },
+        function (error) {
+          alert("Error al enviar correo");
+          console.error("Error al enviar correo", error);
+        }
+      );
     }
 
-    var submitBtn = document.querySelector('.submit-btn');
-    var spSubmitBtn = document.querySelector('.sp-submit-btn');
+    var submitBtn = document.querySelector(".submit-btn");
+    var spSubmitBtn = document.querySelector(".sp-submit-btn");
 
     if (submitBtn) {
-      submitBtn.addEventListener('click', handleSubmit);
+      submitBtn.addEventListener("click", handleSubmit);
     }
 
     if (spSubmitBtn) {
-      spSubmitBtn.addEventListener('click', handleSubmit);
+      spSubmitBtn.addEventListener("click", handleSubmit);
     }
   };
   document.head.appendChild(script);
 
-
   const schema = {
-    "images": {
-      "interactives": {
-        "type": "Interactives",
-        "imageConvert": {
-          "title": "Image convert",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image1_qzjzdl.webp"
+    images: {
+      interactives: {
+        type: "Interactives",
+        imageConvert: {
+          title: "Image convert",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image1_qzjzdl.webp",
         },
-        "videoConvert": {
-          "title": "Video convert",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image10_jnrl74.webp"
+        videoConvert: {
+          title: "Video convert",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image10_jnrl74.webp",
         },
-        "infographic": {
-          "title": "Infographic",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516191/image15_cmnkqb.webp"
+        infographic: {
+          title: "Infographic",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516191/image15_cmnkqb.webp",
         },
-        "carousel": {
-          "title": "Carousel",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image11_qjtjmt.webp"
+        carousel: {
+          title: "Carousel",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image11_qjtjmt.webp",
         },
-        "review": {
-          "title": "Review",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516174/image6_mrhw1t.webp"
+        review: {
+          title: "Review",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516174/image6_mrhw1t.webp",
         },
-        "notes": {
-          "title": "Notes",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516176/image7_xot5rj.webp"
+        notes: {
+          title: "Notes",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516176/image7_xot5rj.webp",
         },
-        "pop": {
-          "title": "Pop",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image3_u1tyik.webp"
+        pop: {
+          title: "Pop",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image3_u1tyik.webp",
         },
-        "rotate": {
-          "title": "Rotate",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516169/image4_s7lzwn.webp"
+        rotate: {
+          title: "Rotate",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516169/image4_s7lzwn.webp",
         },
-        "float": {
-          "title": "Float",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image14_iwki9k.webp"
+        float: {
+          title: "Float",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image14_iwki9k.webp",
         },
         "123Steps": {
-          "title": "1-2-3 Steps",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image2_bihrkf.webp"
+          title: "1-2-3 Steps",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516168/image2_bihrkf.webp",
         },
-        "stream": {
-          "title": "Stream",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image12_tn5wiv.webp"
+        stream: {
+          title: "Stream",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516183/image12_tn5wiv.webp",
         },
-        "falling": {
-          "title": "Falling",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image13_snagtl.webp"
+        falling: {
+          title: "Falling",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516190/image13_snagtl.webp",
         },
-        "beforeAfter": {
-          "title": "Before After",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516170/image5_bbtg9c.webp"
+        beforeAfter: {
+          title: "Before After",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516170/image5_bbtg9c.webp",
         },
-        "grid": {
-          "title": "Grid",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516177/image8_lpj8yq.webp"
+        grid: {
+          title: "Grid",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516177/image8_lpj8yq.webp",
         },
-        "gamifiedQuiz": {
-          "title": "Gamified Quiz",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image9_pojky7.webp"
+        gamifiedQuiz: {
+          title: "Gamified Quiz",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516182/image9_pojky7.webp",
         },
-        "gamidiedProductPage": {
-          "title": "Gamified Product Page",
-          "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516196/image16_jfs7jm.webp"
-        }
+        gamidiedProductPage: {
+          title: "Gamified Product Page",
+          image:
+            "https://res.cloudinary.com/diknoci6h/image/upload/v1763516196/image16_jfs7jm.webp",
+        },
       },
-      "video": {
-        "type": "Video",
+      video: {
+        type: "Video",
         "15staticVideo": {
-          "staticVideo": {
-            "title": "Static Video",
-            "subtitle": "no animation, no music",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-01_sogyss.webp"
+          staticVideo: {
+            title: "Static Video",
+            subtitle: "no animation, no music",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-01_sogyss.webp",
           },
-          "staticVideo2": {
-            "title": "Static Video",
-            "subtitle": "no animation, with music",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-02_tagohs.webp"
+          staticVideo2: {
+            title: "Static Video",
+            subtitle: "no animation, with music",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516156/15s-video-02_tagohs.webp",
           },
-          "staticVideo3": {
-            "title": "Static Video",
-            "subtitle": "with animation, no music",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-03_umvz5b.webp"
+          staticVideo3: {
+            title: "Static Video",
+            subtitle: "with animation, no music",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-03_umvz5b.webp",
           },
-          "staticVideo4": {
-            "title": "Static Video",
-            "subtitle": "with animation, and music",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-04_mee883.webp"
-          }
+          staticVideo4: {
+            title: "Static Video",
+            subtitle: "with animation, and music",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516157/15s-video-04_mee883.webp",
+          },
         },
         "60sVideo": {
-          "imageMashup": {
-            "title": "Image mash up",
-            "subtitle": "multi-statics + subtle animation + music + texts animations + logo",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516158/59s-video-01_xj0ieo.webp"
+          imageMashup: {
+            title: "Image mash up",
+            subtitle:
+              "multi-statics + subtle animation + music + texts animations + logo",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516158/59s-video-01_xj0ieo.webp",
           },
-          "videoAndImage": {
-            "title": "Video and Image",
-            "subtitle": "mash up of top videos + statics + cool transitions + music",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516159/59s-video-02_ujsztd.webp"
+          videoAndImage: {
+            title: "Video and Image",
+            subtitle:
+              "mash up of top videos + statics + cool transitions + music",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516159/59s-video-02_ujsztd.webp",
           },
-          "product": {
-            "title": "Product",
-            "subtitle": "multi-statics + music + logo",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-02-new_f1qw89.webp"
-          }
+          product: {
+            title: "Product",
+            subtitle: "multi-statics + music + logo",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-02-new_f1qw89.webp",
+          },
         },
-        "videoEditing": {
-          "addingSubtitles": {
-            "title": "Adding Subtitles",
-            "subtitle": "captions",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522587/vid-edit-01_qeotoj.webp"
+        videoEditing: {
+          addingSubtitles: {
+            title: "Adding Subtitles",
+            subtitle: "captions",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763522587/vid-edit-01_qeotoj.webp",
           },
-          "adding": {
-            "title": "Adding",
-            "subtitle": "disclaimer",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522593/vid-edit-02_kl7eqp.webp"
-          }
+          adding: {
+            title: "Adding",
+            subtitle: "disclaimer",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763522593/vid-edit-02_kl7eqp.webp",
+          },
         },
-        "ugc": {
-          "product": {
-            "title": "Product",
-            "subtitle": "review",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522575/ugc-01_ktmiwz.webp"
+        ugc: {
+          product: {
+            title: "Product",
+            subtitle: "review",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763522575/ugc-01_ktmiwz.webp",
           },
-          "product2": {
-            "title": "Product",
-            "subtitle": "try on",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763522578/ugc-02_qpa75z.webp"
-          }
+          product2: {
+            title: "Product",
+            subtitle: "try on",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763522578/ugc-02_qpa75z.webp",
+          },
         },
-        "AIugc": {
-          "ai": {
-            "title": "AI",
-            "subtitle": "Intro",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-01_trzjwi.webp"
+        AIugc: {
+          ai: {
+            title: "AI",
+            subtitle: "Intro",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516160/ai-ugc-01_trzjwi.webp",
           },
-          "product": {
-            "title": "Product",
-            "subtitle": "review",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-03_ialzzm.webp"
+          product: {
+            title: "Product",
+            subtitle: "review",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-03_ialzzm.webp",
           },
-          "product2": {
-            "title": "Product",
-            "subtitle": "showcasing",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-04_c5xse7.webp"
+          product2: {
+            title: "Product",
+            subtitle: "showcasing",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516163/ai-ugc-04_c5xse7.webp",
           },
-          "street": {
-            "title": "Street",
-            "subtitle": "interview",
-            "image": "https://res.cloudinary.com/diknoci6h/image/upload/v1763516165/ai-ugc-05_hrbg1k.webp"
-          }
-        }
-      }
-    }
-  }
-
+          street: {
+            title: "Street",
+            subtitle: "interview",
+            image:
+              "https://res.cloudinary.com/diknoci6h/image/upload/v1763516165/ai-ugc-05_hrbg1k.webp",
+          },
+        },
+      },
+    },
+  };
 });
