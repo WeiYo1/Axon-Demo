@@ -120,6 +120,26 @@ tabs.forEach(button => {
   button.addEventListener('click', function () {
     const buttonText = this.textContent.trim();
 
+    // 清空第一页的所有输入框内容
+    const dateInput = document.querySelector('.first-page #date-input');
+    if (dateInput) dateInput.value = '';
+    
+    const descriptionInputs = document.querySelectorAll('.first-page .description-area input');
+    descriptionInputs.forEach(input => input.value = '');
+    
+    const descriptionTextarea = document.querySelector('.first-page .description-area textarea');
+    if (descriptionTextarea) descriptionTextarea.value = '';
+
+    // 清空priority选中的值（第一页）
+    const priorityText = document.getElementById('priority-text');
+    if (priorityText) priorityText.textContent = 'Priority';
+    const priorityOptions = document.querySelectorAll('.priority-option');
+    priorityOptions.forEach(opt => opt.classList.remove('selected'));
+
+    // 清空第一页的所有卡片选中状态
+    const allFirstPageCards = document.querySelectorAll('.first-page .card');
+    allFirstPageCards.forEach(card => card.classList.remove('selected'));
+
     // Si es el botón "Video", mostrar second-page con animación
     if (buttonText === 'Video') {
       const firstPage = document.querySelector('.first-page');
@@ -451,7 +471,6 @@ prioritySection.addEventListener('click', function () {
     prioritySection.classList.remove('open');
     priorityDropdown.classList.remove('open');
     menu.classList.remove('expanded');
-    // Show landing and company inputs when dropdown closes
     if (landingInput) landingInput.style.display = 'flex';
     if (companyInput) companyInput.style.display = 'flex';
     if (companyInput2) companyInput2.style.display = 'flex';
@@ -518,6 +537,7 @@ const spTabs = document.querySelectorAll('.second-page .sp-tab, .second-page .sp
 const spPrimaryButtons = document.querySelectorAll('.second-page .sp-btn-primary');
 const spSecondaryButtons = document.querySelectorAll('.second-page .sp-btn-secondary, .second-page .sp-59s-video-button');
 const spInteractivesButtons = document.querySelectorAll('.second-page .sp-interactives');
+const spInteractiveButtons = document.querySelectorAll('.second-page .interactive-btn');
 
 setTimeout(() => {
   menuToggleCLick()
@@ -530,6 +550,7 @@ function deactivateAllSecondPageButtons() {
   spPrimaryButtons.forEach(btn => btn.classList.remove('active'));
   spSecondaryButtons.forEach(btn => btn.classList.remove('active'));
   spInteractivesButtons.forEach(btn => btn.classList.remove('active'));
+  spInteractiveButtons.forEach(btn => btn.classList.remove('active'));
 }
 
 // Creative Options buttons
@@ -588,6 +609,26 @@ spTabs.forEach(button => {
     // 取消所有卡片的选中状态
     const allCards = document.querySelectorAll('.second-page .sp-card');
     allCards.forEach(card => card.classList.remove('selected'));
+
+    // 取消所有按钮的激活状态（包括 interactive-btn 和 sp-interactives）
+    const allButtons = document.querySelectorAll('.second-page .interactive-btn, .second-page .sp-interactives, .second-page .sp-btn-secondary, .second-page .sp-59s-video-button');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    // 清空第二页的所有输入框内容
+    const spDateInput = document.querySelector('.second-page #date-input');
+    if (spDateInput) spDateInput.value = '';
+    
+    const spDescriptionInputs = document.querySelectorAll('.second-page .description-area input');
+    spDescriptionInputs.forEach(input => input.value = '');
+    
+    const spDescriptionTextarea = document.querySelector('.second-page .description-area textarea');
+    if (spDescriptionTextarea) spDescriptionTextarea.value = '';
+
+    // 清空priority选中的值（第二页）
+    const spPriorityText = document.getElementById('sp-priority-text');
+    if (spPriorityText) spPriorityText.textContent = 'Priority';
+    const spPriorityOptions = document.querySelectorAll('.sp-priority-option');
+    spPriorityOptions.forEach(opt => opt.classList.remove('selected'));
 
     if (buttonText === 'Video') {
       // En second-page, Video debe permanecer activo siempre
@@ -870,10 +911,10 @@ spSecondaryButtons.forEach(button => {
 // Interactives buttons
 spInteractivesButtons.forEach(button => {
   button.addEventListener('click', function () {
+    // Toggle this button only (multi-select allowed)
     if (this.classList.contains('active')) {
       this.classList.remove('active');
     } else {
-      deactivateAllSecondPageButtons();
       this.classList.add('active');
     }
 
@@ -938,9 +979,20 @@ spInteractivesButtons.forEach(button => {
       if (spInterTab) spInterTab.classList.remove('active');
       if (spUgcTab) spUgcTab.classList.remove('active');
       if (spAiUgcTab) spAiUgcTab.classList.add('active');
+    } else {
+      // 对于 Prod review, Prod try-on 等按钮，直接匹配对应的 sp-card
+      // 通过按钮文本查找对应的 sp-card
+      const matchingCard = document.getElementById(buttonText);
+      if (matchingCard && matchingCard.classList.contains('sp-card')) {
+        // Sync card selection with button state
+        const isActive = this.classList.contains('active');
+        if (isActive) {
+          matchingCard.classList.add('selected');
+        } else {
+          matchingCard.classList.remove('selected');
+        }
+      }
     }
-
-    // Do not toggle selection of cards from interactives menu buttons; only scroll
 
     if (targetId) {
       const targetElement = document.getElementById(targetId);
@@ -954,6 +1006,31 @@ spInteractivesButtons.forEach(button => {
           top: offsetPosition,
           behavior: 'smooth'
         });
+      }
+    }
+  });
+});
+
+// Interactive buttons (SECOND PAGE) - for Video tab buttons like "15s static vid 1", "60s vid 1", etc.
+spInteractiveButtons.forEach(button => {
+  button.addEventListener('click', function () {
+    // Toggle this button only (multi-select allowed)
+    if (this.classList.contains('active')) {
+      this.classList.remove('active');
+    } else {
+      this.classList.add('active');
+    }
+
+    // Sync associated card selection with this button state
+    const buttonText = this.textContent.trim();
+    const matchingCard = document.getElementById(buttonText);
+    if (matchingCard && matchingCard.classList.contains('sp-card')) {
+      // Sync card selection with button state
+      const isActive = this.classList.contains('active');
+      if (isActive) {
+        matchingCard.classList.add('selected');
+      } else {
+        matchingCard.classList.remove('selected');
       }
     }
   });
@@ -1221,6 +1298,7 @@ document.addEventListener('click', function (e) {
     }
 
     const cardId = card.id;
+    const nowSelected = !wasSelected;
     let candidateTexts = [];
     if (cardId === '15s-target') {
       candidateTexts = ['15s static video'];
@@ -1232,16 +1310,18 @@ document.addEventListener('click', function (e) {
       candidateTexts = ['UGC'];
     } else if (cardId === 'ai-ugc-target') {
       candidateTexts = ['AI UGC'];
+    } else {
+      // 对于其他 sp-card，直接使用 cardId 作为匹配文本
+      candidateTexts = [cardId];
     }
 
     // Sync buttons with selection state in this section.
     if (candidateTexts.length > 0) {
-      const anySelectedInSection = document.querySelectorAll(`.second-page .sp-card[id="${cardId}"].selected`).length > 0;
-      const allMenuButtons = document.querySelectorAll('.second-page .sp-btn-secondary, .second-page .sp-59s-video-button, .second-page .sp-interactives');
+      const allMenuButtons = document.querySelectorAll('.second-page .sp-btn-secondary, .second-page .sp-59s-video-button, .second-page .sp-interactives, .second-page .interactive-btn');
       for (const btn of allMenuButtons) {
         const txt = btn.textContent.trim();
         if (candidateTexts.includes(txt)) {
-          if (anySelectedInSection) {
+          if (nowSelected) {
             btn.classList.add('active');
           } else {
             btn.classList.remove('active');
@@ -1372,7 +1452,7 @@ if (firstPageSubmitBtn) {
     const companyValue = companyInput ? companyInput.value.trim() : '';
 
     if (!landingValue) {
-      alert('Please fill in the Company\'s name field.');
+      alert('Please fill in the brand name.');
       if (landingInput) landingInput.focus();
       return;
     }
@@ -1402,7 +1482,7 @@ if (secondPageSubmitBtn) {
     const companyValue = companyInput ? companyInput.value.trim() : '';
 
     if (!landingValue) {
-      alert('Please fill in the Company\'s name field.');
+      alert('Please fill in the brand name.');
       if (landingInput) landingInput.focus();
       return;
     }
@@ -1418,3 +1498,32 @@ if (secondPageSubmitBtn) {
     // Add your submit logic here
   });
 }
+
+
+const elementsXin = document.querySelectorAll('.rotate-xin');
+const elementsTw = document.querySelectorAll('.fang-tu');
+const interactiveB = document.querySelector('.interactive-buttons-grid');
+const interactiveC = document.querySelector('.sp-separator-buttons');
+
+elementsXin.forEach(elXin => {
+  if (elXin._hasClickHandler) return;
+
+  const handleClick = () => {
+    console.log('Clicked once!');
+    const isRotated = elementsTw[0]?.dataset.rotated === 'true';
+
+    elementsTw.forEach(elFangTu => {
+      elFangTu.style.transform = isRotated ? 'rotate(0deg)' : 'rotate(90deg)';
+      elFangTu.dataset.rotated = isRotated ? 'false' : 'true';
+    });
+    const vh18 = window.innerHeight * 0.18;
+    const vh10 = window.innerHeight * 0.10;
+    interactiveB.style.height = isRotated ? '4.6vh' : vh18 + 'px';
+    interactiveC.style.height = isRotated ? '4.6vh' : vh10 + 'px';
+  };
+  elXin.addEventListener('click', handleClick);
+  elXin._hasClickHandler = true;
+
+});
+
+
