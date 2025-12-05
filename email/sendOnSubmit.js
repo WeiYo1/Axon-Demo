@@ -137,6 +137,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
+      console.log("选中的卡片数量:", selectedCards.length);
+      console.log("选中的卡片:", selectedCards);
+
       let clientName, clientUrl, additionalInfo, Dbemail, Duedate, folderLink;
 
       if (isFirstPage) {
@@ -228,15 +231,24 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Card seleccionada:", { title, subtitle });
 
         const imageData = getImageFromSchema(title, subtitle, creativeType);
-        if (isFirst) {
-          result += imageData.title;
-          isFirst = false;
+        
+        // 检查 imageData 是否存在，然后添加到 result
+        if (imageData && imageData.title) {
+          if (isFirst) {
+            result += imageData.title;
+            isFirst = false;
+          } else {
+            result += "," + imageData.title;
+          }
         } else {
-          result += "," + imageData.title;
-        }
-
-        if (!imageData) {
-          console.warn("No se encontró imagen para:", title, subtitle);
+          console.warn("No corresponding image was found.:", title, subtitle);
+          // 如果没有找到图片数据，使用 title 作为后备
+          if (isFirst) {
+            result += title || "Unknown";
+            isFirst = false;
+          } else {
+            result += "," + (title || "Unknown");
+          }
         }
 
         return {
@@ -328,13 +340,13 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
               <div class="email-info-section">
                 <div class="email-info-value">${clientName} ${currentTime} ${Dbemail}</div>
                 <div class="email-info-value">BD email:${Dbemail}</div>
-                <div class="email-info-value">BD name:${clientName}</div>
+                <div class="email-info-value">Brand name:${clientName}</div>
                 
 
                  ${
                    clientUrl !== "N/A"
                      ? `
-                <div class="email-info-value"><a href="${clientUrl}" style="color: #0066ff; text-decoration: none;">BD LP:${clientUrl}</a></div>
+                <div class="email-info-value"><a href="${clientUrl}" style="color: #0066ff; text-decoration: none;">Brand lp:${clientUrl}</a></div>
                 `
                      : ""
                  }
@@ -380,19 +392,39 @@ body {  margin: 0;  padding: 0;  background: #0e1013 !important;  font-family: A
 </body>
 </html>`;
 
+var htmlContent2 = `
+    ${clientName} ${currentTime} ${Dbemail}
+
+    BD email: ${Dbemail}
+
+    Brand name: ${clientName}
+
+    Brand lp: ${clientUrl}
+
+    Priority: ${priority}
+
+    Due date: ${Duedate}
+
+    Creative type: ${creativeType}:${result}
+
+    Shared folder link: ${folderLink}
+
+    Description: ${additionalInfo}
+`
+
       var templateParams = {
-        message_html: htmlContent,
+        message_html: htmlContent2,
         email: 'joseph.burghard@applovin.com'
       };
 
       emailjs.send("service_nprass6", "template_4n3gcml", templateParams).then(
         function (response) {
-          alert("Correo enviado correctamente");
-          console.log("Correo enviado", response);
+          alert("Mail sent successfully");
+          console.log("Mail sent successfully", response);
         },
         function (error) {
-          alert("Error al enviar correo");
-          console.error("Error al enviar correo", error);
+          alert("Mail sending failed");
+          console.error("Mail sending failed", error);
         }
       );
     }
